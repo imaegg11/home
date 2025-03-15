@@ -87,10 +87,8 @@ export function Settings() {
                 <Separator className="mx-4" orientation="vertical"></Separator>
                 <ScrollArea type="always" className="w-full my-2 overflow-y-auto">
                     <p className="text-2xl font-semibold text-zinc-300 mb-4">{settingType}</p>
-                    {settings.filter(setting => 
-                        setting.type == settingType
-                    ).map(setting => 
-                        setting.render(setting.name)
+                    {settings.map(setting => 
+                        setting.render(setting.name, setting.type != settingType)
                     )}
                 </ScrollArea>
             </div>

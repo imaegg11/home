@@ -57,6 +57,8 @@ export default function Home() {
                 <DialogContent hideClose={true} className="min-w-fit" onOpenAutoFocus={(e) => {
                     e.preventDefault()
                     document.activeElement.blur()
+                }} onCloseAutoFocus={(e) => {
+                    document.getElementById("search-bar").focus()
                 }}>
                     <DialogHeader>
                         <DialogTitle className="text-zinc-300 text-3xl">Settings Menu</DialogTitle>

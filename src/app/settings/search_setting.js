@@ -61,9 +61,9 @@ export function SearchSetting(name, type) {
 		}
 	}
 
-	const render = (key) => {
+	const render = (key, r) => {
 		const [data, setData] = useState(search_options)
-		const [defaultSerach, setDefault] = useState(default_search)
+		const [defaultSearch, setDefault] = useState(default_search)
 
 		const update_default = (e) => {
             let value = e.target.parentNode.children[0].value
@@ -105,7 +105,7 @@ export function SearchSetting(name, type) {
 			update_local()
 		}
 
-		return (
+		return r ? <div className="hidden" key={key}></div> : (
 			<div key={key}>
 				<p className="text-lg font-semibold">{name}</p>
 
@@ -117,7 +117,7 @@ export function SearchSetting(name, type) {
                                 type="text"
                                 placeholder="Default Search"
                                 className="bg-inherit w-full h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none text-sm mr-2 ml-auto"
-                                defaultValue={defaultSerach}
+                                defaultValue={defaultSearch}
                             ></input>
                             <Button onClick={(e) => update_default(e)} variant="outline">Save</Button>
                         </div>
@@ -214,15 +214,15 @@ export function SearchSetting(name, type) {
 	}
 
 	return {
-		export: export_setting,
-		import: import_setting,
-		load: load,
-		add: add,
-		remove: remove,
-		get: get,
-		render: render,
-		name: name,
-		type: type
+		"export": export_setting,
+		"import": import_setting,
+		"load": load,
+		"add": add,
+		"remove": remove,
+		"get": get,
+		"render": render,
+		"name": name,
+		"type": type
 	}
 }
 

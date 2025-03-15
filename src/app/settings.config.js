@@ -1,6 +1,7 @@
 import { Settings } from "./settings/settings"
 import { ThemeSetting } from "./settings/theme_setting"
 import { SearchSetting } from "./settings/search_setting";
+import { AboutSetting } from "./settings/about_settings";
 
 export const settings = Settings();
 
@@ -12,6 +13,8 @@ search_settings.add(["gh \\v\\", "https://github.com/\\v\\", "#96fc4e"])
 search_settings.add(["google \\v\\", "https://www.google.ca/search?q=\\v\\", "#4efce5"])
 search_settings.add(["google \\v\\", "https://www.google.ca/search?q=\\v\\", "#4efce5"])
 
+const about = AboutSetting("About", "About")
 
 settings.add(search_settings)
+settings.add(about)
 
