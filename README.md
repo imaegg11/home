@@ -6,6 +6,8 @@ Search bar allows for prefix based searching, where prefixes can change the end 
 
 All search settings is stored on your browser in localStorage 
 
+`Ctrl + Enter` to open in new window
+
 `Ctrl + .` to pull up the settings
 
 ---

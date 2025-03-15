@@ -11,7 +11,6 @@ search_settings.add(["gh metro", "https://github.com/wlmac/metropolis", "#fca54e
 search_settings.add(["gh metro \\v\\", "https://github.com/wlmac/metropolis/pull/\\v\\", "#fce54e"])
 search_settings.add(["gh \\v\\", "https://github.com/\\v\\", "#96fc4e"])
 search_settings.add(["google \\v\\", "https://www.google.ca/search?q=\\v\\", "#4efce5"])
-search_settings.add(["google \\v\\", "https://www.google.ca/search?q=\\v\\", "#4efce5"])
 
 const about = AboutSetting("About", "About")
 
