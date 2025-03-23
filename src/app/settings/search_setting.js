@@ -164,7 +164,7 @@ export function SearchSetting(name, type) {
 										<p className="content-center">Color:</p>
 										<div className="flex items-center">
 											<div
-												className="h-8 w-8 ml-auto mr-2 rounded-md"
+												className="h-8 w-8 ml-auto mr-2 rounded-md border-2 border-[#595959]"
 												style={{
 													backgroundColor: color
 												}}

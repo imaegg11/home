@@ -67,13 +67,13 @@ export function Settings() {
 
         const clear_all = () => {
             for (let child of document.getElementById("settings-types").children) {
-                child.classList.remove("bg-zinc-800")
+                child.classList.remove("bg-[--hover-background]")
             }
         }
 
         const handle_type_switch = (event, type) => {
             clear_all()
-            event.target.classList.add("bg-zinc-800")
+            event.target.classList.add("bg-[--hover-background]")
             setSettingType(type)
         }
 
@@ -81,12 +81,12 @@ export function Settings() {
             <div className="w-[50vw] h-[60vh] pb-4 flex">
                 <div id="settings-types" className="w-1/3 my-2 overflow-y-auto"> {/* TODO: */}
                     {settingTypes.map((type, index) => 
-                        <p className={`${index == 0 ? "bg-zinc-800 " : ""}px-3 my-1 py-3 rounded-[0.5rem] hover:cursor-pointer hover:bg-zinc-800`} onClick={(e) => handle_type_switch(e, type)} key={type}>{type}</p>
+                        <p className={`${index == 0 ? "bg-[--hover-background] " : ""}px-3 my-1 py-3 rounded-[0.5rem] hover:cursor-pointer hover:bg-[--hover-background]`} onClick={(e) => handle_type_switch(e, type)} key={type}>{type}</p>
                     )}
                 </div >
                 <Separator className="mx-4" orientation="vertical"></Separator>
                 <ScrollArea type="always" className="w-full my-2 overflow-y-auto">
-                    <p className="text-2xl font-semibold text-zinc-300 mb-4">{settingType}</p>
+                    <p className="text-2xl font-semibold text-[--text] mb-4">{settingType}</p>
                     {settings.map(setting => 
                         setting.render(setting.name, setting.type != settingType)
                     )}

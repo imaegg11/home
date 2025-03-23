@@ -7,7 +7,7 @@ import { Toast } from "./toast";
 import { Time } from "./components/time";
 import { Date_C } from "./components/date";
 import { SearchBar } from "./components/search";
-import { settings } from "./settings.config";
+import { get_settings } from "./settings.config";
 
 import {
     Dialog,
@@ -27,6 +27,8 @@ export default function Home() {
 
     const [settingsOpen, setSettingsOpen] = useState(false)
     const [mounted, setMounted] = useState(false);
+
+    const settings = get_settings();
 
     useEffect(() => {
         setMounted(true); 
@@ -48,7 +50,7 @@ export default function Home() {
     }
 
     return (
-        <div id="date-div" className="text-zinc-300 select-none grid place-items-center content-center h-screen w-screen">
+        <div id="date-div" className="text-[--text] select-none grid place-items-center content-center h-screen w-screen">
             <div className="text-6xl font-medium"><Time></Time></div>
             <Date_C></Date_C>
             <br></br>
@@ -61,7 +63,7 @@ export default function Home() {
                     document.getElementById("search-bar").focus()
                 }}>
                     <DialogHeader>
-                        <DialogTitle className="text-zinc-300 text-3xl">Settings Menu</DialogTitle>
+                        <DialogTitle className="text-[--text] text-3xl">Settings Menu</DialogTitle>
                         <DialogDescription>Manage your preferences here</DialogDescription>
                     </DialogHeader>
                     <settings.render></settings.render>
