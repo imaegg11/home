@@ -13,7 +13,7 @@ import {
 
 export function ThemeSetting(name, type) {
 
-    const { theme, setTheme, resolvedTheme } = useTheme();
+    const { theme, setTheme, resolvedTheme, systemTheme } = useTheme();
 
     const export_setting = () => {
         let export_object = {
@@ -29,15 +29,20 @@ export function ThemeSetting(name, type) {
 
     const load = () => {
         if (localStorage.getItem("theme_setting") === null) {
-            localStorage.setItem("theme_setting", "system")
-            setTheme("system")
+            update("system")
         } else {
             update(localStorage.getItem("theme_setting"))
         }
     }
 
     const update = (value) => {
+        setTheme(value)
+
         localStorage.setItem("theme_setting", value);
+        
+        if (value == "system") {
+            value = systemTheme;
+        }
         document.documentElement.classList.remove("light", "dark", "system");
         document.documentElement.classList.add(value);
     };
@@ -50,19 +55,22 @@ export function ThemeSetting(name, type) {
 
         let data = [
             {
+                "themeName": "light",
                 "theme": "light",
                 "displayColor": "white",
                 "children": <></>,
                 "selected": false
             },
             {
+                "themeName": "dark",
                 "theme": "dark",
                 "displayColor": "black",
                 "children": <></>,
                 "selected": false
             },
             {
-                "theme": "system",
+                "themeName": "system",
+                "theme": systemTheme,
                 "displayColor": "transparent",
                 "children": <Laptop className="fixed" style={{ color: "var(--text)" }}></Laptop>,
                 "selected": false
@@ -70,7 +78,7 @@ export function ThemeSetting(name, type) {
         ]
 
         for (let e of data) {
-            if (e.theme == theme) {
+            if (e.themeName == localStorage.getItem("theme_setting")) {
                 e.selected = true;
                 break;
             }
@@ -78,16 +86,21 @@ export function ThemeSetting(name, type) {
 
         const [themes, setThemes] = useState(data)
 
-        let update_theme = (th) => {
-            update(th)
+        let update_theme = (themeName, th) => {
+
+            console.log(systemTheme, th)
+
+            update(themeName)
 
             setThemes(themes.map(value => {
                 value.selected = false;
 
-                if (value.theme == th) value.selected = true;
+                if (value.themeName == themeName) value.selected = true;
 
                 return value;
             }))
+
+            console.log(themes)
         }
 
         return r ? <div className="hidden" key={key}></div> : (
@@ -107,7 +120,7 @@ export function ThemeSetting(name, type) {
                                                     style={{
                                                         backgroundColor: value.displayColor
                                                     }}
-                                                    onClick={() => update_theme(value.theme)}
+                                                    onClick={() => update_theme(value.themeName, value.theme)}
                                                 >
                                                     {value.children}
                                                     {/* <Check size={20} className={`${value.selected ? "" : "hidden"} fixed]`} color="#16a34a"></Check> */}
@@ -116,7 +129,7 @@ export function ThemeSetting(name, type) {
                                                 </div>
                                             </TooltipTrigger>
                                             <TooltipContent>
-                                                <p>{value.theme} theme</p>
+                                                <p>{value.themeName} theme</p>
                                             </TooltipContent>
                                         </Tooltip>
                                     </TooltipProvider>
