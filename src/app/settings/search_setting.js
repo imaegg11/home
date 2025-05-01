@@ -62,9 +62,9 @@ export function SearchSetting(name, type, lsm) {
 	}
 
 	const render = (key, r) => {
-		let settings = lsm.getItem(name);
-		const [data, setData] = useState(settings["search_options"])
-		const [defaultSearch, setDefault] = useState(settings["default_search"])
+		let settings = JSON.parse(lsm.getItem(name));
+		const [data, setData] = useState(settings["options"])
+		const [defaultSearch, setDefault] = useState(settings["default"])
 
 		const update_default = (e) => {
             let value = e.target.parentNode.children[0].value
