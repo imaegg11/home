@@ -11,34 +11,34 @@ import {
     TooltipTrigger,
   } from "@/components/ui/tooltip"
 
-export function ThemeSetting(name, type) {
+export function ThemeSetting(name, type, lsm) {
 
     const { theme, setTheme, resolvedTheme, systemTheme } = useTheme();
 
     const export_setting = () => {
         let export_object = {
-            "theme_setting": localStorage.getItem("theme_setting"),
+            "theme_setting": lsm.getItem("theme_setting"),
         }
 
         return export_object;
     }
 
     const import_setting = (import_object) => {
-        localStorage.setItem("theme_setting", import_object.getItem("theme_setting"));
+        lsm.setItem("theme_setting", import_object.getItem("theme_setting"));
     }
 
     const load = () => {
-        if (localStorage.getItem("theme_setting") === null) {
+        if (lsm.getItem("theme_setting") === null) {
             update("system")
         } else {
-            update(localStorage.getItem("theme_setting"))
+            update(lsm.getItem("theme_setting"))
         }
     }
 
     const update = (value) => {
         setTheme(value)
 
-        localStorage.setItem("theme_setting", value);
+        lsm.setItem("theme_setting", value);
         
         if (value == "system") {
             value = systemTheme;
@@ -78,7 +78,7 @@ export function ThemeSetting(name, type) {
         ]
 
         for (let e of data) {
-            if (e.themeName == localStorage.getItem("theme_setting")) {
+            if (e.themeName == lsm.getItem("theme_setting")) {
                 e.selected = true;
                 break;
             }
@@ -87,8 +87,6 @@ export function ThemeSetting(name, type) {
         const [themes, setThemes] = useState(data)
 
         let update_theme = (themeName, th) => {
-
-            console.log(systemTheme, th)
 
             update(themeName)
 
@@ -99,8 +97,6 @@ export function ThemeSetting(name, type) {
 
                 return value;
             }))
-
-            console.log(themes)
         }
 
         return r ? <div className="hidden" key={key}></div> : (
@@ -129,7 +125,7 @@ export function ThemeSetting(name, type) {
                                                 </div>
                                             </TooltipTrigger>
                                             <TooltipContent>
-                                                <p>{value.themeName} theme</p>
+                                                <p className="invert">{value.themeName} theme</p>
                                             </TooltipContent>
                                         </Tooltip>
                                     </TooltipProvider>

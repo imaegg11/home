@@ -10,8 +10,18 @@
 
 body {
   font-family: Noto Sans, Arial, Helvetica, sans-serif;
+  background-repeat: no-repeat;
+  background-size:  cover;
+  transition: backgroundSize 0s !important;
 }
 
+* {
+  transition: all 0.25s cubic-bezier( 0.39, 0.575, 0.565, 1 ) !important;
+}
+
+p {
+  color: var(--text);
+}
 
 @layer base {
   :root {

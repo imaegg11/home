@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Toast } from '@/app/toast'
 import { useState } from 'react'
 
-export function SearchSetting(name, type) {
+export function SearchSetting(name, type, lsm) {
 	let search_options = []
 
 	let default_search = 'https://duckduckgo.com/?t=ffab&q='
@@ -23,15 +23,15 @@ export function SearchSetting(name, type) {
 	}
 
 	const load = () => {
-		if (localStorage.getItem(name) === null || localStorage.getItem(name) === "null") {
-            localStorage.setItem(name, JSON.stringify(export_setting()))
+		if (lsm.getItem(name) === null || lsm.getItem(name) === "null") {
+            update()
         } else {
-			import_setting(JSON.parse(localStorage.getItem(name)))
+			import_setting(JSON.parse(lsm.getItem(name)))
 		}
 	}
 
-	const update_local = () => {
-		localStorage.setItem(name, JSON.stringify(export_setting()))
+	const update = () => {
+		lsm.setItem(name, JSON.stringify(export_setting()))
 	}
 
 	const add = (value) => {
@@ -62,14 +62,15 @@ export function SearchSetting(name, type) {
 	}
 
 	const render = (key, r) => {
-		const [data, setData] = useState(search_options)
-		const [defaultSearch, setDefault] = useState(default_search)
+		let settings = lsm.getItem(name);
+		const [data, setData] = useState(settings["search_options"])
+		const [defaultSearch, setDefault] = useState(settings["default_search"])
 
 		const update_default = (e) => {
             let value = e.target.parentNode.children[0].value
 			default_search = value
 
-			update_local()
+			update()
 			setDefault(value)
 
             Toast.success("Saved")
@@ -84,7 +85,7 @@ export function SearchSetting(name, type) {
 			let id = search_options[index][3]
 
 			search_options[index] = [shortcut, description, color, id]
-			update_local()
+			update()
 
 			setData((prev) =>
 				prev.map((e, i) => (i == index ? search_options[index] : e))
@@ -95,33 +96,34 @@ export function SearchSetting(name, type) {
 
 		const delete_value = (index, id) => {
 			remove(id)
-			update_local()
+			update()
 
 			setData((prev) => prev.filter((e, i) => i != index))
 		}
 
 		const add_value = () => {
 			setData([...data, add(['', '', '#ffffff'])])
-			update_local()
+			update()
 		}
 
 		return r ? <div className="hidden" key={key}></div> : (
 			<div key={key}>
 				<p className="text-lg font-semibold">{name}</p>
 
-				<Accordion type="multiple" className="w-[90%] mx-2">
-					<div className="flex justify-between content-center my-2">
-						<p className="content-center text-sm">Default Search: </p>
-                        <div className="flex items-center content-center">
-                            <input
-                                type="text"
-                                placeholder="Default Search"
-                                className="bg-inherit w-full h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none text-sm mr-2 ml-auto"
-                                defaultValue={defaultSearch}
-                            ></input>
-                            <Button onClick={(e) => update_default(e)} variant="outline">Save</Button>
-                        </div>
+				<div className="flex justify-between content-center my-2">
+					<p className="content-center text-sm">Default Search: </p>
+					<div className="flex items-center content-center">
+						<input
+							type="text"
+							placeholder="Default Search"
+							className="bg-inherit w-full h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none text-sm mr-2 ml-auto"
+							defaultValue={defaultSearch}
+						></input>
+						<Button onClick={(e) => update_default(e)} variant="outline">Save</Button>
 					</div>
+				</div>
+
+				<Accordion type="multiple" className="w-[90%] mx-2">
 
 					{data.length == 0 ? 
 						<div className="mt-8 mb-6">

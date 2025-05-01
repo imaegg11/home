@@ -1,18 +1,23 @@
+import { localStorageManager } from "../settings/localStorage_manager";
+
 export function SearchBar(props) {
 
     const { searchSettings, ...rest } = props 
 
     return (
         <input id="search-bar" type="text" autoComplete="off" autoFocus placeholder="Search" onKeyUp={(e) => search_function(e, searchSettings)}
-            className="bg-inherit w-full h-10 border-2 border-gray-750 select-none rounded-3xl px-6  transition focus-within:outline-none focus-within:shadow-[0_1px_6px_0_var(--shadow-color)] hover:shadow-[0_1px_6px_0_var(--shadow-color)]"
+            className="bg-[hsl(var(--background))] w-full h-10 border-2 border-gray-750 select-none rounded-3xl px-6  transition focus-within:outline-none focus-within:shadow-[0_1px_6px_0_var(--shadow-color)] hover:shadow-[0_1px_6px_0_var(--shadow-color)]"
         ></input>
     )
 }
 
 function search_function(event, searchSettings) {
 
-    const options = searchSettings["options"]
-    const default_search = searchSettings["default"]
+    let lsm = new localStorageManager("home");
+    let settings = JSON.parse(lsm.getItem("Search Shortcuts"));
+
+    const options = settings["options"]
+    const default_search = settings["default"]
     
     const value = document.getElementById("search-bar").value
     let search_link = null 
@@ -23,7 +28,6 @@ function search_function(event, searchSettings) {
 
         if (!input.includes("\\v\\") && input == value) {
             search_link = output 
-            console.log(color)
             event.target.style.setProperty("--shadow-color", color)
             break 
         }
@@ -66,6 +70,7 @@ function search_function(event, searchSettings) {
         }
 
         document.getElementById("search-bar").value = ""
+        event.target.style.setProperty("--shadow-color", "#71717a")
     }
 
 }

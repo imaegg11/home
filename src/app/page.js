@@ -20,7 +20,6 @@ import {
     DialogTrigger,
   } from "@/components/ui/dialog"
 
-
 export default function Home() {
 
     // TODO: https://stackoverflow.com/questions/77026759/using-next-themes-for-dark-mode-generates-hydration-failed-error
@@ -29,18 +28,18 @@ export default function Home() {
     const [mounted, setMounted] = useState(false);
 
     const settings = get_settings();
-
     useEffect(() => {
-        setMounted(true); 
-
+        
         settings.load()
-
+        
+        setMounted(true); 
+        
         const toggleSettings = (e) => {
             if (e.key === "." && e.ctrlKey) {
                 setSettingsOpen(prev => !prev); 
             }
         };
-    
+        
         window.addEventListener("keydown", toggleSettings);
         return () => window.removeEventListener("keydown", toggleSettings); 
     }, []);
@@ -54,7 +53,7 @@ export default function Home() {
             <div className="text-6xl font-medium"><Time></Time></div>
             <Date_C></Date_C>
             <br></br>
-            <div className="mt-8 w-1/2 flex justify-center"><SearchBar searchSettings={settings.get("Search Shortcuts").get()}></SearchBar></div>
+            <div className="mt-8 w-1/2 flex justify-center"><SearchBar searchSettings={settings.get("Search Shortcuts")}></SearchBar></div>
             <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
                 <DialogContent hideClose={true} className="min-w-fit" onOpenAutoFocus={(e) => {
                     e.preventDefault()

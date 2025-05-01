@@ -1,4 +1,4 @@
-export function Setting(name, type) {
+export function Setting(name, type, lsm) {
 
     const export_setting = () => {}
 
