@@ -51,7 +51,7 @@ export function ThemeSetting(name, type, lsm) {
         return theme;
     }
 
-    const render = (key, r) => {
+    function Component({ r }) {
 
         let data = [
             {
@@ -99,8 +99,8 @@ export function ThemeSetting(name, type, lsm) {
             }))
         }
 
-        return r ? <div className="hidden" key={key}></div> : (
-            <div key={key}>
+        return r ? <div className="hidden"></div> : (
+            <div>
                 <p className="text-lg font-semibold">{name}</p>
                 <div className="flex justify-between content-center mb-3 items-center">
 					<p className="content-center">Display Theme</p>
@@ -138,6 +138,8 @@ export function ThemeSetting(name, type, lsm) {
             </div>
         )
     }
+
+    const render = (key, r) => <Component key={key} r={r}/>
 
     return {
         "export": export_setting,
