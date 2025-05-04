@@ -1,15 +1,14 @@
-import { Settings } from "./settings/settings"
-import { ThemeSetting } from "./settings/theme_setting"
-import { SearchSetting } from "./settings/search_setting";
-import { AboutSetting } from "./settings/about_settings";
-import { BackgroundSetting } from "./settings/background_setting";
 import { localStorageManager } from "./settings/localStorage_manager";
+import { useSettings } from "./settings/setting_provider";
+import { useEffect } from "react";
 
+import { ThemeSetting, SearchSetting, AboutSetting, BackgroundSetting } from "./settings/all_settings"
 
-export function get_settings() {
-    const settings = Settings();
+export function SetupSettings({ onLoad }) {
+    const settings = useSettings()
+    const lsm = new localStorageManager('home')
 
-    const lsm = new localStorageManager("home");
+    // SETTINGS HERE
 
     const search_settings = SearchSetting('Search Shortcuts', 'Search',lsm)
     search_settings.add(["wiki \\v\\", "https://en.wikipedia.org/wiki/\\v\\", "#fc4e4e"],lsm)
@@ -20,15 +19,28 @@ export function get_settings() {
     
     const about = AboutSetting("About", "About",lsm)
     const theme = ThemeSetting("Theme", "Appearance",lsm)
-    const bg = BackgroundSetting("Background Image", "Appearance", lsm)
-    
-    settings.add(theme)
-    settings.add(search_settings)
-    settings.add(about)
-    settings.add(bg);
+    const bg = BackgroundSetting("Background Image", "Appearance",lsm)
 
-    return settings
+
+    const all_settings = [
+        theme, 
+        search_settings, 
+        about, 
+        bg
+    ]
+
+    // SETTINGS END HERE
+
+    useEffect(() => {
+
+        for (let setting of all_settings) {
+            settings.add(setting)
+        }
+
+        settings.load()
+        onLoad()
+
+    }, [settings, onLoad])
+
+    return null
 }
-
-
-

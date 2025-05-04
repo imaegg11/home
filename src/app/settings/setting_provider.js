@@ -1,12 +1,12 @@
 'use client';
 
 import React, { createContext, useContext, useRef } from 'react';
-import { Settings } from './settings';
+import { globalSettings } from './settings';
 
 const SettingsContext = createContext(null);
 
 export function SettingsProvider({ children }) {
-    const SettingsRef = useRef(new Settings());
+    const SettingsRef = useRef(globalSettings);
 
     return (
         <SettingsContext.Provider value={SettingsRef.current}>

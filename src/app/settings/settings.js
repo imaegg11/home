@@ -114,3 +114,5 @@ export function Render() {
         </div>
     )
 }
+
+export const globalSettings = new Settings(); 
