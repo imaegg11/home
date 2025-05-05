@@ -1,4 +1,6 @@
-export function Setting(name, type, lsm) {
+import { lsm } from "./localStorage_manager"
+
+export function Setting(name, type) {
 
     const export_setting = () => {}
 
@@ -10,13 +12,15 @@ export function Setting(name, type, lsm) {
     
     const get = () => {}
 
-    const render = (key, r) => {
-        return r ? <div className="hidden" key={key}></div> : (
-            <div key={key}>
+    function Component({ isHidden })  {
+        return isHidden ? <div className="hidden"></div> : (
+            <div>
 
             </div>
         )
     }
+
+    const render = (key, r) => <Component key={key} isHidden={r}/>
 
     return {
         "export": export_setting,

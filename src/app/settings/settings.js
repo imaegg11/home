@@ -6,6 +6,7 @@ import { useSettings } from "./setting_provider";
 
 export function Settings() {
     let settings = [];
+    let isLoaded = false;
 
     function exportSettings() {
         let export_object = {};
@@ -32,9 +33,14 @@ export function Settings() {
     }
 
     function load() {
+
+        if (isLoaded) return 
+
         for (let setting of settings) {
             setting.load();
         }
+
+        isLoaded = false;
     }
 
     function remove(name) {

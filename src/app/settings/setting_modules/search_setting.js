@@ -7,35 +7,50 @@ import {
 import { Button } from '@/components/ui/button'
 import { Toast } from '@/app/toast'
 import { useState } from 'react'
+import { lsm } from '../localStorage_manager'
 
-export function SearchSetting(name, type, lsm) {
+export function SearchSetting(name, type) {
 	let search_options = []
 
 	let default_search = 'https://duckduckgo.com/?t=ffab&q='
 
 	const export_setting = () => {
-		return get()
+		return {
+			[name]: get()
+		}
+
 	}
 
 	const import_setting = (import_object) => {
-		search_options = import_object["options"]
-		default_search = import_object["default"]
+		let opt = import_object["options"]
+		let def = import_object["default"]
+
+		update(opt, def)
 	}
 
 	const load = () => {
-		if (lsm.getItem(name) === null || lsm.getItem(name) === "null") {
-            update()
+		if (lsm.getItem(name) === null) {
+            update(search_options, default_search)
         } else {
-			import_setting(JSON.parse(lsm.getItem(name)))
+			import_setting(lsm.getItem(name))
 		}
 	}
 
-	const update = () => {
-		lsm.setItem(name, JSON.stringify(export_setting()))
+	const update = (opt, def) => {
+		search_options = opt 
+		default_search = def 
+
+		lsm.setItem(name, get())
 	}
 
+	const uuidv4 = () => { // Literally only here to make a unique id that barely gets used :) 
+		return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+		  (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
+		);
+	  }
+
 	const add = (value) => {
-		value.push(Date.now() + search_options.length)
+		value.push(uuidv4())
 		search_options.push(value)
 
 		return value
@@ -62,15 +77,13 @@ export function SearchSetting(name, type, lsm) {
 	}
 
 	const render = (key, r) => {
-		let settings = JSON.parse(lsm.getItem(name));
-		const [data, setData] = useState(settings["options"])
-		const [defaultSearch, setDefault] = useState(settings["default"])
+		const [data, setData] = useState(search_options)
+		const [defaultSearch, setDefault] = useState(default_search)
 
 		const update_default = (e) => {
             let value = e.target.parentNode.children[0].value
-			default_search = value
 
-			update()
+			update(search_options, value)
 			setDefault(value)
 
             Toast.success("Saved")
@@ -84,8 +97,10 @@ export function SearchSetting(name, type, lsm) {
 
 			let id = search_options[index][3]
 
-			search_options[index] = [shortcut, description, color, id]
-			update()
+			let options = search_options.slice()
+			options[index] = [shortcut, description, color, id]
+
+			update(options, default_search)
 
 			setData((prev) =>
 				prev.map((e, i) => (i == index ? search_options[index] : e))
@@ -103,7 +118,7 @@ export function SearchSetting(name, type, lsm) {
 
 		const add_value = () => {
 			setData([...data, add(['', '', '#ffffff'])])
-			update()
+			update(search_options, default_search)
 		}
 
 		return r ? <div className="hidden" key={key}></div> : (

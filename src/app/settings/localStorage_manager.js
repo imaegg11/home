@@ -31,3 +31,5 @@ export class localStorageManager {
 
     }
 }
+
+export const lsm = new localStorageManager("home")

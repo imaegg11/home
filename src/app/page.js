@@ -3,7 +3,6 @@
 
 import { useState, useEffect } from "react";
 
-import { Toast } from "./toast";
 import { Time } from "./components/time";
 import { Date_C } from "./components/date";
 import { SearchBar } from "./components/search";

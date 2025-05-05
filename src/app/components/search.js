@@ -12,9 +12,8 @@ export function SearchBar(props) {
 }
 
 function search_function(event, searchSettings) {
-
-    let lsm = new localStorageManager("home");
-    let settings = JSON.parse(lsm.getItem("Search Shortcuts"));
+    
+    let settings = searchSettings.get();
 
     const options = settings["options"]
     const default_search = settings["default"]

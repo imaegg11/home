@@ -2,10 +2,7 @@
 const nextConfig = {
     distDir: 'out',
     output: 'export',
-    // basePath: '/home',
-    // experimental: {
-    //     reactCompiler: true,
-    // },
+    // basePath: '/home'
 };
 
 export default nextConfig;

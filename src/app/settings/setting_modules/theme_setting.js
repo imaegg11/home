@@ -1,5 +1,3 @@
-'use client'
-
 import { useTheme } from "next-themes";
 import { Check, Laptop } from "lucide-react";
 import { useState } from "react"
@@ -11,47 +9,58 @@ import {
     TooltipTrigger,
   } from "@/components/ui/tooltip"
 
-export function ThemeSetting(name, type, lsm) {
+  import { lsm } from '../localStorage_manager';
 
-    const { theme, setTheme, resolvedTheme, systemTheme } = useTheme();
+export function ThemeSetting(name, type) {
+
+    let gTheme = "system"
 
     const export_setting = () => {
         let export_object = {
-            "theme_setting": lsm.getItem("theme_setting"),
+            [name]: get()
         }
 
         return export_object;
     }
 
     const import_setting = (import_object) => {
-        lsm.setItem("theme_setting", import_object.getItem("theme_setting"));
+        update(import_object["theme"])
     }
 
     const load = () => {
         if (lsm.getItem("theme_setting") === null) {
             update("system")
         } else {
-            update(lsm.getItem("theme_setting"))
+            import_setting(lsm.getItem("theme_setting"))
         }
     }
 
     const update = (value) => {
-        setTheme(value)
-
-        lsm.setItem("theme_setting", value);
         
-        if (value == "system") {
-            value = systemTheme;
-        }
-        document.documentElement.classList.remove("light", "dark", "system");
-        document.documentElement.classList.add(value);
+        // setTheme(value)
+        gTheme = value 
+        
+        lsm.setItem("theme_setting", get());
+
+        // Bruh it literally just works (I'm going to have to fix something to get custom themes working eventually though)
+
+        // if (value == "system") {
+        //     value = systemTheme;
+        // }
+
+        // document.documentElement.classList.remove("light", "dark", "system");
+        // document.documentElement.classList.add(` ${resolvedTheme}`.slice(1));
     };
 
     const get = () => {
-        return theme;
+        return {
+            "theme": gTheme
+        };
     }
 
-    function Component({ r }) {
+    function Component({ isHidden }) {
+
+        const { theme, setTheme, systemTheme } = useTheme(gTheme);
 
         let data = [
             {
@@ -78,7 +87,7 @@ export function ThemeSetting(name, type, lsm) {
         ]
 
         for (let e of data) {
-            if (e.themeName == lsm.getItem("theme_setting")) {
+            if (e.themeName == theme) {
                 e.selected = true;
                 break;
             }
@@ -86,9 +95,11 @@ export function ThemeSetting(name, type, lsm) {
 
         const [themes, setThemes] = useState(data)
 
-        let update_theme = (themeName, th) => {
+        let update_theme = (themeName) => {
 
             update(themeName)
+
+            setTheme(themeName)
 
             setThemes(themes.map(value => {
                 value.selected = false;
@@ -99,7 +110,7 @@ export function ThemeSetting(name, type, lsm) {
             }))
         }
 
-        return r ? <div className="hidden"></div> : (
+        return isHidden ? <div className="hidden"></div> : (
             <div>
                 <p className="text-lg font-semibold">{name}</p>
                 <div className="flex justify-between content-center mb-3 items-center">
@@ -116,7 +127,7 @@ export function ThemeSetting(name, type, lsm) {
                                                     style={{
                                                         backgroundColor: value.displayColor
                                                     }}
-                                                    onClick={() => update_theme(value.themeName, value.theme)}
+                                                    onClick={() => update_theme(value.themeName)}
                                                 >
                                                     {value.children}
                                                     {/* <Check size={20} className={`${value.selected ? "" : "hidden"} fixed]`} color="#16a34a"></Check> */}
@@ -139,7 +150,7 @@ export function ThemeSetting(name, type, lsm) {
         )
     }
 
-    const render = (key, r) => <Component key={key} r={r}/>
+    const render = (key, r) => <Component key={key} isHidden={r}/>
 
     return {
         "export": export_setting,
