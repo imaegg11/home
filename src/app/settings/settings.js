@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Setting } from "./setting_template"
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSettings } from "./setting_provider";
@@ -12,11 +11,7 @@ export function Settings() {
         let export_object = {};
 
         for (let setting of settings) {
-            let setting_export = {
-                [setting.name]: setting.export()
-            };
-
-            export_object = {...export_object, ...setting_export};
+            export_object = {...export_object, ...setting.export()};
         }
 
         return export_object;
@@ -70,6 +65,48 @@ export function Settings() {
         return settings;
     }
 
+    function Component() {
+
+        const settings = useSettings().getAll()
+       
+        const [ settingType, setSettingType ] = useState(settings.length == 0 ? [] : settings[0].type)
+    
+        const settingTypes = settings.length == 0 ? [] : [...new Set(settings.map(setting => setting.type))]
+    
+        const clear_all = () => {
+            for (let child of document.getElementById("settings-types").children) {
+                child.classList.remove("bg-[--hover-background]")
+            }
+        }
+    
+        const handle_type_switch = (event, type) => {
+            clear_all()
+            event.target.classList.add("bg-[--hover-background]")
+            setSettingType(type)
+        }
+    
+        return (
+            <div className="w-[50vw] h-[60vh] pb-4 flex">
+                <div id="settings-types" className="w-1/3 my-2 overflow-y-auto"> {/* TODO: */}
+                    {settingTypes.map((type, index) => 
+                        <p className={`${index == 0 ? "bg-[--hover-background] " : ""}px-3 my-1 py-3 rounded-[0.5rem] hover:cursor-pointer hover:bg-[--hover-background]`} onClick={(e) => handle_type_switch(e, type)} key={type}>{type}</p>
+                    )}
+                </div >
+                <Separator className="mx-4" orientation="vertical"></Separator>
+                <ScrollArea type="always" className="w-full my-2 overflow-y-auto">
+                    <p className="text-2xl font-semibold text-[--text] mb-4">{settingType}</p>
+                    {settings.map(setting => 
+                        setting.render(setting.name, setting.type != settingType)
+                    )}
+                </ScrollArea>
+            </div>
+        )
+    }
+
+    function render() {
+        return <Component key={Math.random}/>
+    }
+
     return {
         "export": exportSettings,
         "import": importSettings,
@@ -77,48 +114,9 @@ export function Settings() {
         "load": load,
         "remove": remove,
         "get": get,
-        "getAll": getAll
-        // "render": render
+        "getAll": getAll,
+        "render": render
     };
-}
-
-
-export function Render() {
-
-    const settings = useSettings().getAll()
-   
-    const [ settingType, setSettingType ] = useState(settings.length == 0 ? [] : settings[0].type)
-
-    const settingTypes = settings.length == 0 ? [] : [...new Set(settings.map(setting => setting.type))]
-
-    const clear_all = () => {
-        for (let child of document.getElementById("settings-types").children) {
-            child.classList.remove("bg-[--hover-background]")
-        }
-    }
-
-    const handle_type_switch = (event, type) => {
-        clear_all()
-        event.target.classList.add("bg-[--hover-background]")
-        setSettingType(type)
-    }
-
-    return (
-        <div className="w-[50vw] h-[60vh] pb-4 flex">
-            <div id="settings-types" className="w-1/3 my-2 overflow-y-auto"> {/* TODO: */}
-                {settingTypes.map((type, index) => 
-                    <p className={`${index == 0 ? "bg-[--hover-background] " : ""}px-3 my-1 py-3 rounded-[0.5rem] hover:cursor-pointer hover:bg-[--hover-background]`} onClick={(e) => handle_type_switch(e, type)} key={type}>{type}</p>
-                )}
-            </div >
-            <Separator className="mx-4" orientation="vertical"></Separator>
-            <ScrollArea type="always" className="w-full my-2 overflow-y-auto">
-                <p className="text-2xl font-semibold text-[--text] mb-4">{settingType}</p>
-                {settings.map(setting => 
-                    setting.render(setting.name, setting.type != settingType)
-                )}
-            </ScrollArea>
-        </div>
-    )
 }
 
 export const globalSettings = new Settings(); 

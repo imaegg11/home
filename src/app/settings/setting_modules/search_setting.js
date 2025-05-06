@@ -111,7 +111,7 @@ export function SearchSetting(name, type) {
 
 		const delete_value = (index, id) => {
 			remove(id)
-			update()
+			update(search_options, default_search)
 
 			setData((prev) => prev.filter((e, i) => i != index))
 		}

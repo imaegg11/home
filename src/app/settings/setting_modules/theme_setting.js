@@ -14,6 +14,7 @@ import {
 export function ThemeSetting(name, type) {
 
     let gTheme = "system"
+    const { theme, setTheme, systemTheme } = useTheme(gTheme);
 
     const export_setting = () => {
         let export_object = {
@@ -42,6 +43,8 @@ export function ThemeSetting(name, type) {
         
         lsm.setItem("theme_setting", get());
 
+        setTheme(value);
+
         // Bruh it literally just works (I'm going to have to fix something to get custom themes working eventually though)
 
         // if (value == "system") {
@@ -59,9 +62,6 @@ export function ThemeSetting(name, type) {
     }
 
     function Component({ isHidden }) {
-
-        const { theme, setTheme, systemTheme } = useTheme(gTheme);
-
         let data = [
             {
                 "themeName": "light",
@@ -87,7 +87,7 @@ export function ThemeSetting(name, type) {
         ]
 
         for (let e of data) {
-            if (e.themeName == theme) {
+            if (e.themeName == gTheme) {
                 e.selected = true;
                 break;
             }
@@ -98,8 +98,6 @@ export function ThemeSetting(name, type) {
         let update_theme = (themeName) => {
 
             update(themeName)
-
-            setTheme(themeName)
 
             setThemes(themes.map(value => {
                 value.selected = false;

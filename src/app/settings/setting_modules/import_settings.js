@@ -1,0 +1,81 @@
+import { Button } from "@/components/ui/button"
+import { lsm } from "../localStorage_manager"
+import { globalSettings } from "../settings"
+import { Toast } from "@/app/toast"
+import { useState } from "react"
+
+export function ImportSettings(name, type) {
+
+    const export_setting = () => {
+        return {}
+    }
+
+    const import_setting = (import_object) => {}
+
+    const load = () => {}
+
+    const update = (value) => {}
+    
+    const get = () => {}
+
+    function Component({ isHidden })  {
+
+        const download_file = (content, fileName, contentType) => {
+            var a = document.createElement("a");
+            var file = new Blob([content], {type: contentType});
+            a.href = URL.createObjectURL(file);
+            a.download = fileName;
+            a.click();
+        }
+
+        const select_file = () => {
+            document.getElementById("select").click();
+        }
+
+        const import_all = (e) => {
+            let file = e.target.files[0]
+
+            let reader = new FileReader();
+            reader.readAsText(file, "UTF-8");
+
+            reader.onload = (r) => {
+                try {
+                    globalSettings.import(JSON.parse(r.target.result));
+
+                    Toast.success("Imported successfully")
+                } catch (error) {
+                    Toast.error("Something went wrong...")
+                }
+            }
+
+            reader.onerror = (r) => {
+                Toast.error("Something went wrong...")
+            }
+        }
+
+        return isHidden ? <div className="hidden"></div> : (
+            <div>
+
+                <p className="text-lg font-semibold">{name}</p>
+                <div className="flex justify-between content-center my-2">
+					<p className="content-center text-sm">Import Settings From File</p>
+                    <input id="select" onChange={(e) => import_all(e)} className="hidden" type='file'></input>
+					<Button onClick={() => select_file()} variant="outline">Import</Button>
+				</div>
+            </div>
+        )
+    }
+
+    const render = (key, r) => <Component key={key} isHidden={r}/>
+
+    return {
+        "export": export_setting,
+        "import": import_setting,
+        "load": load,
+        "update": update,
+        "get": get,
+        "render": render, 
+        "name": name,
+        "type": type 
+    }
+}

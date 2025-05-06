@@ -68,7 +68,7 @@ export default function Home() {
                             <DialogTitle className="text-[--text] text-3xl">Settings Menu</DialogTitle>
                             <DialogDescription>Manage your preferences here</DialogDescription>
                         </DialogHeader>
-                        {settingsReady ? <Render /> : <p>Loading settings...</p>}
+                        {settingsReady ? globalSettings.render() : <p>Loading settings...</p>}
                     </DialogContent>
                 </Dialog>
             </div>
