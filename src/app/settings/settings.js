@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useReducer, useEffect } from "react";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useSettings } from "./setting_provider";
 
 export function Settings() {
     let settings = [];
@@ -66,9 +65,6 @@ export function Settings() {
     }
 
     function Component() {
-
-        const settings = useSettings().getAll()
-       
         const [ settingType, setSettingType ] = useState(settings.length == 0 ? [] : settings[0].type)
     
         const settingTypes = settings.length == 0 ? [] : [...new Set(settings.map(setting => setting.type))]
@@ -104,7 +100,7 @@ export function Settings() {
     }
 
     function render() {
-        return <Component key={Math.random}/>
+        return <Component key={Math.random()}/>
     }
 
     return {

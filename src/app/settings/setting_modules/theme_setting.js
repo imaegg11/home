@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
 import { Check, Laptop } from "lucide-react";
-import { useState } from "react"
+import { useReducer, useState } from "react"
 
 import {
     Tooltip,
@@ -9,7 +9,7 @@ import {
     TooltipTrigger,
   } from "@/components/ui/tooltip"
 
-  import { lsm } from '../localStorage_manager';
+import { lsm } from '../localStorage_manager';
 
 export function ThemeSetting(name, type) {
 
@@ -158,6 +158,6 @@ export function ThemeSetting(name, type) {
         "get": get,
         "render": render, 
         "name": name,
-        "type": type 
+        "type": type,
     }
 }

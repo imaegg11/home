@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button"
 import { lsm } from "../localStorage_manager"
 import { globalSettings } from "../settings"
 import { Toast } from "@/app/toast"
-import { useState } from "react"
 
 export function ImportSettings(name, type) {
 
@@ -19,15 +18,7 @@ export function ImportSettings(name, type) {
     const get = () => {}
 
     function Component({ isHidden })  {
-
-        const download_file = (content, fileName, contentType) => {
-            var a = document.createElement("a");
-            var file = new Blob([content], {type: contentType});
-            a.href = URL.createObjectURL(file);
-            a.download = fileName;
-            a.click();
-        }
-
+        
         const select_file = () => {
             document.getElementById("select").click();
         }
@@ -44,7 +35,9 @@ export function ImportSettings(name, type) {
 
                     Toast.success("Imported successfully")
                 } catch (error) {
-                    Toast.error("Something went wrong...")
+                    Toast.error("Something went wrong...");
+
+                    console.log(error)
                 }
             }
 
@@ -76,6 +69,6 @@ export function ImportSettings(name, type) {
         "get": get,
         "render": render, 
         "name": name,
-        "type": type 
+        "type": type,
     }
 }

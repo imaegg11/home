@@ -76,7 +76,7 @@ export function SearchSetting(name, type) {
 		}
 	}
 
-	const render = (key, r) => {
+	function Component({ isHidden })  {
 		const [data, setData] = useState(search_options)
 		const [defaultSearch, setDefault] = useState(default_search)
 
@@ -121,10 +121,9 @@ export function SearchSetting(name, type) {
 			update(search_options, default_search)
 		}
 
-		return r ? <div className="hidden" key={key}></div> : (
-			<div key={key}>
+		return isHidden ? <div className="hidden"></div> : (
+			<div>
 				<p className="text-lg font-semibold">{name}</p>
-
 				<div className="flex justify-between content-center my-2">
 					<p className="content-center text-sm">Default Search: </p>
 					<div className="flex items-center content-center">
@@ -229,6 +228,8 @@ export function SearchSetting(name, type) {
 			</div>
 		)
 	}
+
+	const render = (key, r) => <Component key={key} isHidden={r}/>
 
 	return {
 		"export": export_setting,
