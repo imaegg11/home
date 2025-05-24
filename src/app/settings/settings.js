@@ -19,6 +19,10 @@ export function Settings() {
     function importSettings(import_object) {
         for (let setting of settings) {
             setting.import(import_object[setting.name]);
+
+            if (setting.updateAfterSettingsImport != undefined) setting.updateAfterSettingsImport();
+
+            console.log(setting.updateAfterSettingsImport)
         }
     }
 
@@ -83,7 +87,7 @@ export function Settings() {
     
         return (
             <div className="w-[50vw] h-[60vh] pb-4 flex">
-                <div id="settings-types" className="w-1/3 my-2 overflow-y-auto"> {/* TODO: */}
+                <div id="settings-types" className="w-1/3 my-2 overflow-y-auto"> {/* TO-DO */}
                     {settingTypes.map((type, index) => 
                         <p className={`${index == 0 ? "bg-[--hover-background] " : ""}px-3 my-1 py-3 rounded-[0.5rem] hover:cursor-pointer hover:bg-[--hover-background]`} onClick={(e) => handle_type_switch(e, type)} key={type}>{type}</p>
                     )}

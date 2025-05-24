@@ -8,6 +8,8 @@ export function BackgroundSetting(name, type) {
 
     let bg = "";
 
+    let updateAfterSettingsImport = null;
+
     const export_setting = () => {
         let export_object = {
             [name]: get()
@@ -18,6 +20,8 @@ export function BackgroundSetting(name, type) {
 
     const import_setting = (import_object) => {
         update(import_object["url"])
+
+        if (updateAfterSettingsImport !== null) updateAfterSettingsImport()
     }
 
     const load = () => {
@@ -45,6 +49,8 @@ export function BackgroundSetting(name, type) {
     function Component({ isHidden }) {
 
         const [bgURL, setBgURL] = useState(bg)
+
+        updateAfterSettingsImport = () => setBgURL(bg)
 
         const update_bg = (e) => {
             let value = e.target.parentNode.children[0].value

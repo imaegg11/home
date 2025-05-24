@@ -14,6 +14,8 @@ export function SearchSetting(name, type) {
 
 	let default_search = 'https://duckduckgo.com/?t=ffab&q='
 
+	let updateAfterSettingsImport = null;
+
 	const export_setting = () => {
 		return {
 			[name]: get()
@@ -26,6 +28,8 @@ export function SearchSetting(name, type) {
 		let def = import_object["default"]
 
 		update(opt, def)
+
+        if (updateAfterSettingsImport !== null) updateAfterSettingsImport()
 	}
 
 	const load = () => {
@@ -119,6 +123,11 @@ export function SearchSetting(name, type) {
 		const add_value = () => {
 			setData([...data, add(['', '', '#ffffff'])])
 			update(search_options, default_search)
+		}
+
+		updateAfterSettingsImport = () => {
+			setData(search_options)
+			setDefault(default_search)
 		}
 
 		return isHidden ? <div className="hidden"></div> : (

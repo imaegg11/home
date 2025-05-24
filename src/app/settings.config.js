@@ -24,6 +24,7 @@ export function SetupSettings({ onLoad }) {
     const imp = ImportSettings("Import Settings", "Settings")
 
 
+
     const all_settings = [
         theme,
         search_settings,

@@ -16,6 +16,8 @@ export function ThemeSetting(name, type) {
     let gTheme = "system"
     const { theme, setTheme, systemTheme } = useTheme(gTheme);
 
+    let updateAfterSettingsImport = null;
+
     const export_setting = () => {
         let export_object = {
             [name]: get()
@@ -26,6 +28,10 @@ export function ThemeSetting(name, type) {
 
     const import_setting = (import_object) => {
         update(import_object["theme"])
+
+        if (updateAfterSettingsImport !== null) updateAfterSettingsImport()
+
+        // I might be a little silly 
     }
 
     const load = () => {
@@ -38,7 +44,6 @@ export function ThemeSetting(name, type) {
 
     const update = (value) => {
         
-        // setTheme(value)
         gTheme = value 
         
         lsm.setItem("theme_setting", get());
@@ -107,6 +112,8 @@ export function ThemeSetting(name, type) {
                 return value;
             }))
         }
+
+        updateAfterSettingsImport = () => {update_theme(gTheme)}
 
         return isHidden ? <div className="hidden"></div> : (
             <div>
