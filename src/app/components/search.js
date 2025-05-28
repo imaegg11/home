@@ -38,10 +38,10 @@ function search_function(event, searchSettings) {
             let values = value.substring(input.indexOf("\\v\\"), value.length).split("|")
 
             let match = true;
-
+            
             for (let v of values) {
                 if (output.includes("\\v\\")) {
-                    output = output.replace("\\v\\", v)
+                    output = output.replace("\\v\\", encodeURIComponent(v))
                 } else {
                     match = false 
                 }
@@ -56,7 +56,7 @@ function search_function(event, searchSettings) {
     }
 
     if (search_link == null) {
-        search_link = `${default_search}${value}` 
+        search_link = `${default_search}${encodeURIComponent(value)}` 
         event.target.style.setProperty("--shadow-color", "#71717a")
     }
 
