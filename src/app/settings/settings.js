@@ -93,7 +93,7 @@ export function Settings() {
                     )}
                 </div >
                 <Separator className="mx-4" orientation="vertical"></Separator>
-                <ScrollArea type="always" className="w-full my-2 overflow-y-auto">
+                <ScrollArea type="always" className="w-full my-2 overflow-y-auto px-6">
                     <p className="text-2xl font-semibold text-[--text] mb-4">{settingType}</p>
                     {settings.map(setting => 
                         setting.render(setting.name, setting.type != settingType)
