@@ -1,4 +1,3 @@
-import { localStorageManager } from "./settings/localStorage_manager";
 import { useSettings } from "./settings/setting_provider";
 import { useEffect } from "react";
 
@@ -6,7 +5,6 @@ import { ThemeSetting, SearchSetting, AboutSetting, BackgroundSetting, ExportSet
 
 export function SetupSettings({ onLoad }) {
     const settings = useSettings()
-    const lsm = new localStorageManager('home')
 
     // SETTINGS HERE
 
@@ -22,8 +20,6 @@ export function SetupSettings({ onLoad }) {
     const bg = BackgroundSetting("Background Image", "Appearance")
     const exp = ExportSettings("Export Settings", "Settings")
     const imp = ImportSettings("Import Settings", "Settings")
-
-
 
     const all_settings = [
         theme,

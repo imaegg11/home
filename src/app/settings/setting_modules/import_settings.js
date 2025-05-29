@@ -51,7 +51,10 @@ export function ImportSettings(name, type) {
 
                 <p className="text-lg font-semibold">{name}</p>
                 <div className="flex justify-between content-center my-2">
-					<p className="content-center text-sm">Import Settings From File</p>
+                    <div>
+                        <p className="content-center text-sm">Import Settings From File</p>
+                        <p className="content-center text-xs text-muted-foreground">Warning! You will lose all your current settings!</p>
+                    </div>
                     <input id="select" onChange={(e) => import_all(e)} className="hidden" type='file'></input>
 					<Button onClick={() => select_file()} variant="outline">Import</Button>
 				</div>

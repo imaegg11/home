@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +7,7 @@
 }
 
 body {
-  font-family: Noto Sans, Arial, Helvetica, sans-serif;
+  font-family: var(--noto), Arial, Helvetica, sans-serif;
   background-repeat: no-repeat;
   background-size:  cover;
   transition: backgroundSize 0s !important;

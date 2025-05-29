@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dialog"
 
 import { SettingsProvider } from "./settings/setting_provider";
-import { globalSettings, Render } from "./settings/settings";
+import { globalSettings } from "./settings/settings";
 
 
 

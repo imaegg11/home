@@ -19,10 +19,6 @@ export function Settings() {
     function importSettings(import_object) {
         for (let setting of settings) {
             setting.import(import_object[setting.name]);
-
-            if (setting.updateAfterSettingsImport != undefined) setting.updateAfterSettingsImport();
-
-            console.log(setting.updateAfterSettingsImport)
         }
     }
 
