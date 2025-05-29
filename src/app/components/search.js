@@ -1,5 +1,3 @@
-import { localStorageManager } from "../settings/localStorage_manager";
-
 export function SearchBar(props) {
 
     const { searchSettings, ...rest } = props 
@@ -60,7 +58,7 @@ function search_function(event, searchSettings) {
         event.target.style.setProperty("--shadow-color", "#71717a")
     }
 
-    if (event.keyCode == 13) {
+    if (event.keyCode == 13 && document.hasFocus()) {
 
         if (event.ctrlKey) {
             window.open(search_link)
