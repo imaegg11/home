@@ -1,9 +1,43 @@
+import { useEffect } from "react";
+
 export function SearchBar(props) {
 
     const { searchSettings, ...rest } = props 
 
+    useEffect(() => {
+
+        if (searchSettings == null) return;
+
+        let searchBar = document.getElementById("search-bar");
+        
+        let timeout;
+
+        const searchFunction = (e) => {search_function(e, searchSettings)}
+
+        const addSearch = (ms) => {
+            timeout = setTimeout(() => searchBar.addEventListener("keyup", searchFunction), ms)
+        }
+
+        const removeSearch = () => {
+            clearTimeout(timeout);
+
+            searchBar.removeEventListener("keyup", searchFunction)
+        }
+
+        window.addEventListener("focus", (e) => {
+            addSearch(300);
+        })
+
+        window.addEventListener("blur", (e) => {
+            removeSearch();
+        })
+
+        addSearch(0);
+
+    }, [searchSettings])
+
     return (
-        <input id="search-bar" type="text" autoComplete="off" autoFocus placeholder="Search" onKeyUp={(e) => search_function(e, searchSettings)}
+        <input id="search-bar" type="text" autoComplete="off" autoFocus placeholder="Search"
             className="bg-[hsl(var(--background))] w-full h-10 border-2 border-gray-750 select-none rounded-3xl px-6  transition focus-within:outline-none focus-within:shadow-[0_1px_6px_0_var(--shadow-color)] hover:shadow-[0_1px_6px_0_var(--shadow-color)]"
         ></input>
     )
@@ -21,7 +55,7 @@ function search_function(event, searchSettings) {
 
     for (let option of options) {
 
-        let [ input, output, color, id ] = option 
+        let [ input, output, color, useURI, id ] = option 
 
         if (!input.includes("\\v\\") && input == value) {
             search_link = output 
@@ -39,7 +73,7 @@ function search_function(event, searchSettings) {
             
             for (let v of values) {
                 if (output.includes("\\v\\")) {
-                    output = output.replace("\\v\\", encodeURIComponent(v))
+                    output = output.replace("\\v\\", useURI ? encodeURIComponent(v) : v)
                 } else {
                     match = false 
                 }
@@ -58,8 +92,7 @@ function search_function(event, searchSettings) {
         event.target.style.setProperty("--shadow-color", "#71717a")
     }
 
-    if (event.keyCode == 13 && document.hasFocus()) {
-
+    if (event.keyCode == 13) {
         if (event.ctrlKey) {
             window.open(search_link)
         } else {

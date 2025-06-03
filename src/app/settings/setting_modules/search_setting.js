@@ -9,6 +9,8 @@ import { Toast } from '@/app/toast'
 import { useState } from 'react'
 import { lsm } from '../localStorage_manager'
 
+import { Switch  } from "@/components/ui/switch"
+
 export function SearchSetting(name, type) {
 	let search_options = []
 
@@ -121,7 +123,7 @@ export function SearchSetting(name, type) {
 		}
 
 		const add_value = () => {
-			setData([...data, add(['', '', '#ffffff'])])
+			setData([...data, add(['', '', '#ffffff', false])])
 			update(search_options, default_search)
 		}
 
@@ -153,7 +155,10 @@ export function SearchSetting(name, type) {
 							<p className="text-center text-sm">There seems to be nothing here... Try adding a shortcut?</p>
 						</div>
 					: data.map((value, index) => {
-						let [shortcut, destination, color, id] = value
+						let [shortcut, destination, color, useURI, id] = value
+
+						console.log(value);
+						console.log()
 
 						return (
 							<AccordionItem key={index + 10} value={index + 10}>
@@ -201,6 +206,12 @@ export function SearchSetting(name, type) {
 												defaultValue={color}
 											></input>
 										</div>
+									</div>
+									<div className="flex justify-between content-center my-3">
+										<p className="content-center">
+											Use encodeURIComponent:
+										</p>
+										<Switch checked={useURI} className="mr-2 data-[state=unchecked]:[&>span]:bg-[var(--text)]"/>
 									</div>
 									<div className="flex justify-between content-center">
 										<div></div>
