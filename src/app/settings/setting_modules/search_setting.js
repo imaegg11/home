@@ -101,10 +101,12 @@ export function SearchSetting(name, type) {
 			let description = parent[1].children[1].value
 			let color = parent[2].children[1].children[1].value
 
+			let useURI = parent[3].children[1].getAttribute('data-state') == 'checked'
+
 			let id = search_options[index][3]
 
 			let options = search_options.slice()
-			options[index] = [shortcut, description, color, id]
+			options[index] = [shortcut, description, color, useURI, id]
 
 			update(options, default_search)
 
@@ -157,9 +159,6 @@ export function SearchSetting(name, type) {
 					: data.map((value, index) => {
 						let [shortcut, destination, color, useURI, id] = value
 
-						console.log(value);
-						console.log()
-
 						return (
 							<AccordionItem key={index + 10} value={index + 10}>
 								<AccordionTrigger>
@@ -211,7 +210,7 @@ export function SearchSetting(name, type) {
 										<p className="content-center">
 											Use encodeURIComponent:
 										</p>
-										<Switch checked={useURI} className="mr-2 data-[state=unchecked]:[&>span]:bg-[var(--text)]"/>
+										<Switch defaultChecked={useURI} className="mr-2 data-[state=unchecked]:[&>span]:bg-[var(--text)]"/>
 									</div>
 									<div className="flex justify-between content-center">
 										<div></div>
