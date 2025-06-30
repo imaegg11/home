@@ -116,7 +116,7 @@ export function ThemeSetting(name, type) {
         updateAfterSettingsImport = () => {update_theme(gTheme)}
 
         return isHidden ? <div className="hidden"></div> : (
-            <div>
+            <div className="text">
                 <p className="text-lg font-semibold">{name}</p>
                 <div className="flex justify-between content-center mb-3 items-center">
 					<p className="content-center">Display Theme</p>
@@ -141,7 +141,7 @@ export function ThemeSetting(name, type) {
                                                 </div>
                                             </TooltipTrigger>
                                             <TooltipContent>
-                                                <p className="invert">{value.themeName} theme</p>
+                                                <p>{value.themeName} theme</p>
                                             </TooltipContent>
                                         </Tooltip>
                                     </TooltipProvider>

@@ -3,17 +3,28 @@ import { useState, useEffect } from "react"
 export function Time() {
     
     const [time, setTime] = useState(get_time());
+    const [trail, setTrail] = useState(get_trail());
 
     useEffect(() => {
         setInterval(() => {
             setTime(get_time());
+            setTrail(get_trail());
         }, 1000);
     }, []);
 
     return (
-        <p>{time}</p>
+        <p className="text">{time} <span className="accent-text">{trail}</span></p>
     )
 
+}
+
+function get_trail() {
+    const current_date = new Date();
+
+    let hour = current_date.getHours()
+    let trail = hour >= 12 ? "PM" : "AM"
+
+    return trail;
 }
 
 function get_time() {
@@ -27,5 +38,5 @@ function get_time() {
     if (hour > 12) hour %= 12;
     else if (hour == 0) hour = 12;
     
-    return `${hour}:${minute} ${trail}`;
+    return `${hour}:${minute}`;
 }

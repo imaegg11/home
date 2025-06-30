@@ -16,7 +16,7 @@ export function AboutSetting(name, type) {
         return isHidden ? <div className="hidden"></div> : (
             <div>
                 {/* <p className="text-lg font-semibold">{name}</p> */}
-                <p className="mt-4">Hi. I'll put something here someday... <br></br>In the meanwhile you can enjoy the random stuff I decide to make</p>
+                <p className="text mt-4">Hi. I'll put something here someday... <br></br>In the meanwhile you can enjoy the random stuff I decide to make</p>
                 <p className="mt-4 text-muted-foreground select-none">© imaegg11 2025 (No I don't actually have a copyright on this)</p>
             </div>
         )

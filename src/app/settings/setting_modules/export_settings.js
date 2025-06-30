@@ -33,7 +33,7 @@ export function ExportSettings(name, type) {
         }
 
         return isHidden ? <div className="hidden"></div> : (
-            <div>
+            <div className="text">
 
                 <p className="text-lg font-semibold">{name}</p>
 

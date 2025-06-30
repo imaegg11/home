@@ -14,11 +14,25 @@ body {
 }
 
 * {
-  transition: all 0.25s cubic-bezier( 0.39, 0.575, 0.565, 1 ) !important;
+  transition: all 0.25s cubic-bezier( 0.39, 0.575, 0.565, 1 ) !important; 
+  /* FIX LATER */
 }
 
-p {
+.text {
   color: var(--text);
+}
+
+.accent-text {
+  color: var(--accent)
+}
+
+.muted {
+  color: var(--text-40)
+}
+
+input::placeholder {
+  color: var(--text-40);
+  opacity: 1;
 }
 
 @layer base {
@@ -60,9 +74,20 @@ p {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
-    --text: rgb(212 212 216);
-    --hover-background: rgb(39 39 42);
-    --background: 240 10% 3.9%;
+
+    --text: hsl(240, 10%, 96%);
+    --text-20: hsl(240, 10%, 76%);
+    --text-40: hsl(240, 10%, 56%);
+    --text-70: hsl(240, 10%, 26%);
+    --background-0: hsl(240, 10%, 4%);
+    --background-10: hsl(240, 10%, 14%);
+    --background-20: hsl(240, 10%, 24%);
+    --accent: hsl(211, 100%, 38%);
+    --buttons-primary: hsl(210, 64%, 32%);
+    --buttons-secondary: hsl(211, 71%, 53%);
+
+    --background: 240, 10%, 4%;
+  
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;

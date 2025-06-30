@@ -38,7 +38,7 @@ export function SearchBar(props) {
 
     return (
         <input id="search-bar" type="text" autoComplete="off" autoFocus placeholder="Search"
-            className="bg-[hsl(var(--background))] w-full h-10 border-2 border-gray-750 select-none rounded-3xl px-6  transition focus-within:outline-none focus-within:shadow-[0_1px_6px_0_var(--shadow-color)] hover:shadow-[0_1px_6px_0_var(--shadow-color)]"
+            className="muted bg-[hsl(var(--background))] w-full h-10 border-2 border-[hsl(var(--border))] select-none rounded-3xl px-6  transition focus-within:outline-none focus-within:shadow-[0_1px_6px_0_var(--shadow-color)] hover:shadow-[0_1px_6px_0_var(--shadow-color)]"
         ></input>
     )
 }

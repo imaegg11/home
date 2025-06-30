@@ -135,7 +135,7 @@ export function SearchSetting(name, type) {
 		}
 
 		return isHidden ? <div className="hidden"></div> : (
-			<div>
+			<div className="text">
 				<p className="text-lg font-semibold">{name}</p>
 				<div className="flex justify-between content-center my-2">
 					<p className="content-center text-sm">Default Search: </p>

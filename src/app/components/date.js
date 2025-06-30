@@ -11,7 +11,7 @@ export function Date_C() {
     }, []);
 
     return (
-        <p>{date}</p>
+        <p className="text">{date}</p>
     )
 
 }
