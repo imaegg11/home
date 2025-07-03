@@ -105,7 +105,7 @@ export function Settings() {
 
         return (
             <div className="h-[60vh]">
-                <div className="flex w-[50vw] h-[58vh] pb-4 relative top-0">
+                <div className="flex w-[50vw] h-[55vh] pb-4 relative top-0">
                     <div id="settings-types" className="w-1/3 my-2 overflow-y-auto"> {/* TO-DO */}
                         {settingTypes.map((type, index) =>
                             <p className={`${index == 0 ? "bg-[var(--background-10)] text " : "muted "}px-4 my-1 py-2 rounded-[0.25rem] hover:cursor-pointer hover:bg-[var(--background-10)] text-sm`} onClick={(e) => handle_type_switch(e, type)} key={type}>{type}</p>
