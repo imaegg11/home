@@ -58,7 +58,7 @@ export default function Home() {
                 <br></br>
                 <div className="mt-8 w-1/2 flex justify-center"><SearchBar searchSettings={globalSettings.get("Search Shortcuts")}></SearchBar></div>
                 <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
-                    <DialogContent hideClose={true} className="min-w-fit" onOpenAutoFocus={(e) => {
+                    <DialogContent hideClose={true} className="min-w-fit h-[80vh]" onOpenAutoFocus={(e) => {
                         e.preventDefault()
                         document.activeElement.blur()
                     }} onCloseAutoFocus={(e) => {

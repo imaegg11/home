@@ -47,9 +47,9 @@ export function ImportSettings(name, type) {
         }
 
         return isHidden ? <div className="hidden"></div> : (
-            <div className="text">
+            <div className="text mb-4">
 
-                <p className="text-lg font-semibold">{name}</p>
+                <p className="font-semibold">{name}</p>
                 <div className="flex justify-between content-center my-2">
                     <div>
                         <p className="content-center text-sm">Import Settings From File</p>

@@ -1,6 +1,4 @@
-import { Button } from '@/components/ui/button'
-import { Toast } from '@/app/toast'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { lsm } from '../localStorage_manager';
 
 
@@ -8,7 +6,7 @@ export function BackgroundSetting(name, type) {
 
     let bg = "";
 
-    let updateAfterSettingsImport = null;
+    let updateLocalstorageSettings = null;
 
     const export_setting = () => {
         let export_object = {
@@ -20,8 +18,10 @@ export function BackgroundSetting(name, type) {
 
     const import_setting = (import_object) => {
         update(import_object["url"])
-
-        if (updateAfterSettingsImport !== null) updateAfterSettingsImport()
+    }
+    
+    const save_preferences = () => {
+        if (updateLocalstorageSettings !== null) updateLocalstorageSettings()
     }
 
     const load = () => {
@@ -50,31 +50,32 @@ export function BackgroundSetting(name, type) {
 
         const [bgURL, setBgURL] = useState(bg)
 
-        updateAfterSettingsImport = () => setBgURL(bg)
+        useEffect(() => {
+            setBgURL(bg)
+        }, [bg])
+
+        updateLocalstorageSettings = () => update(bgURL) // This has to be the most roundabout way of doing this
 
         const update_bg = (e) => {
-            let value = e.target.parentNode.children[0].value
+            let value = e.target.value
 
-			update(value)
-			setBgURL(value)
-
-            Toast.success("Saved")
+            setBgURL(value)
         }
 
         return isHidden ? <div className="hidden"></div> : (
-            <div className="text">
-                <p className="text-lg font-semibold">{name}</p>
+            <div className="text mb-4">
+                <p className="font-semibold">{name}</p>
 
                 <div className="flex justify-between content-center my-2">
 					<p className="content-center text-sm">Background URL: </p>
-					<div className="flex items-center content-center">
+					<div className="flex items-center content-center w-3/5">
 						<input
 							type="text"
 							placeholder="Background Image URL"
 							className="bg-inherit w-full h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none text-sm mr-2 ml-auto"
 							defaultValue={bgURL}
+                            onChange={(e) => update_bg(e)}
 						></input>
-						<Button onClick={(e) => update_bg(e)} variant="outline">Save</Button>
 					</div>
 				</div>
             </div>
@@ -89,6 +90,7 @@ export function BackgroundSetting(name, type) {
         "load": load,
         "update": update,
         "get": get,
+        "save": save_preferences, 
         "render": render, 
         "name": name,
         "type": type 

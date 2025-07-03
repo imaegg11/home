@@ -2,6 +2,8 @@ import { lsm } from "../localStorage_manager"
 
 export function Setting(name, type) {
 
+    let updateLocalstorageSettings = null;
+
     const export_setting = () => {}
 
     const import_setting = (import_object) => {}
@@ -9,6 +11,10 @@ export function Setting(name, type) {
     const load = () => {}
 
     const update = (value) => {}
+
+    const save_preferences = () => {
+        if (updateLocalstorageSettings !== null) updateLocalstorageSettings()
+    }
     
     const get = () => {}
 
@@ -28,6 +34,7 @@ export function Setting(name, type) {
         "load": load,
         "update": update,
         "get": get,
+        "save": save_preferences, 
         "render": render, 
         "name": name,
         "type": type 

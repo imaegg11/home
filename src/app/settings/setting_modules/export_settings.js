@@ -33,9 +33,9 @@ export function ExportSettings(name, type) {
         }
 
         return isHidden ? <div className="hidden"></div> : (
-            <div className="text">
+            <div className="text mb-4">
 
-                <p className="text-lg font-semibold">{name}</p>
+                <p className="font-semibold">{name}</p>
 
                 <div className="flex justify-between content-center my-2">
 					<p className="content-center text-sm">Export Settings To File</p>

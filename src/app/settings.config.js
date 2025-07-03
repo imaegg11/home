@@ -30,12 +30,21 @@ export function SetupSettings({ onLoad }) {
         about,
     ]
 
+    const setting_types_need_saving = [
+        "Appearance",
+        "Search"
+    ]
+
     // SETTINGS END HERE
 
     useEffect(() => {
 
         for (let setting of all_settings) {
             settings.add(setting)
+        }
+
+        for (let setting_type of setting_types_need_saving) {
+            settings.addNeedSaving(setting_type)
         }
 
         settings.load()

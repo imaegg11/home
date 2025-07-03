@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
 import { Check, Laptop } from "lucide-react";
-import { useReducer, useState } from "react"
+import { useEffect, useState } from "react"
 
 import {
     Tooltip,
@@ -16,7 +16,7 @@ export function ThemeSetting(name, type) {
     let gTheme = "system"
     const { theme, setTheme, systemTheme } = useTheme(gTheme);
 
-    let updateAfterSettingsImport = null;
+    let updateLocalstorageSettings = null;
 
     const export_setting = () => {
         let export_object = {
@@ -26,12 +26,12 @@ export function ThemeSetting(name, type) {
         return export_object;
     }
 
+    const save_preferences = () => {
+        if (updateLocalstorageSettings !== null) updateLocalstorageSettings()
+    }
+
     const import_setting = (import_object) => {
         update(import_object["theme"])
-
-        if (updateAfterSettingsImport !== null) updateAfterSettingsImport()
-
-        // I might be a little silly 
     }
 
     const load = () => {
@@ -102,8 +102,6 @@ export function ThemeSetting(name, type) {
 
         let update_theme = (themeName) => {
 
-            update(themeName)
-
             setThemes(themes.map(value => {
                 value.selected = false;
 
@@ -113,13 +111,17 @@ export function ThemeSetting(name, type) {
             }))
         }
 
-        updateAfterSettingsImport = () => {update_theme(gTheme)}
+        updateLocalstorageSettings = () => update(themes.filter(theme => theme.selected == true)[0].themeName)
+
+        useEffect(() => {
+            update_theme(gTheme)
+        }, [gTheme])
 
         return isHidden ? <div className="hidden"></div> : (
-            <div className="text">
-                <p className="text-lg font-semibold">{name}</p>
-                <div className="flex justify-between content-center mb-3 items-center">
-					<p className="content-center">Display Theme</p>
+            <div className="text mb-4">
+                <p className="font-semibold">{name}</p>
+                <div className="flex justify-between content-center items-center">
+					<p className="content-center text-sm">Display Theme</p>
                     <div id="themes" className="flex items-center">
                         {
                             themes.map((value, index) => {
@@ -163,6 +165,7 @@ export function ThemeSetting(name, type) {
         "load": load,
         "update": update,
         "get": get,
+        "save": save_preferences, 
         "render": render, 
         "name": name,
         "type": type,

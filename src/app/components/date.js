@@ -7,7 +7,7 @@ export function Date_C() {
     useEffect(() => {
         setInterval(() => {
             setDate(get_date());
-        }, 86400000);
+        }, 1000);
     }, []);
 
     return (
@@ -28,5 +28,5 @@ function get_date() {
     let day = current_date.getDate();
     let year = current_date.getFullYear();
     
-    return `${dates[date]}, ${months_short[month]}. ${day}, ${year}`;
+    return `${dates[date]}, ${months_short[month]}${["June", "July"].includes(months_short[month]) ? "" : "."} ${day}, ${year}`;
 }

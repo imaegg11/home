@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Toast } from '@/app/toast'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { lsm } from '../localStorage_manager'
 
 import { Switch  } from "@/components/ui/switch"
@@ -16,7 +16,7 @@ export function SearchSetting(name, type) {
 
 	let default_search = 'https://duckduckgo.com/?t=ffab&q='
 
-	let updateAfterSettingsImport = null;
+    let updateLocalstorageSettings = null;
 
 	const export_setting = () => {
 		return {
@@ -30,8 +30,6 @@ export function SearchSetting(name, type) {
 		let def = import_object["default"]
 
 		update(opt, def)
-
-        if (updateAfterSettingsImport !== null) updateAfterSettingsImport()
 	}
 
 	const load = () => {
@@ -56,7 +54,7 @@ export function SearchSetting(name, type) {
 	  }
 
 	const add = (value) => {
-		value.push(uuidv4())
+		if (value.length != 5) value.push(uuidv4())
 		search_options.push(value)
 
 		return value
@@ -65,7 +63,7 @@ export function SearchSetting(name, type) {
 	const remove = (id) => {
 		let return_val;
 		for (let i = 0; i < search_options.length; i++) {
-			let option_id = search_options[i][3]
+			let option_id = search_options[i][4]
 
 			if (option_id == id) {
 				return_val = search_options.splice(i, 1)
@@ -82,71 +80,69 @@ export function SearchSetting(name, type) {
 		}
 	}
 
+	const save_preferences = () => {
+        if (updateLocalstorageSettings !== null) updateLocalstorageSettings()
+    }
+
 	function Component({ isHidden })  {
 		const [data, setData] = useState(search_options)
 		const [defaultSearch, setDefault] = useState(default_search)
 
+		useEffect(() => {
+			setData(search_options)
+			setDefault(default_search)
+		}, [search_options, default_search])
+
 		const update_default = (e) => {
-            let value = e.target.parentNode.children[0].value
+            let value = e.target.value
 
-			update(search_options, value)
 			setDefault(value)
-
-            Toast.success("Saved")
 		}
 
-		const update_value = (e, index) => {
-			let parent = e.target.parentNode.parentNode.parentNode.children
+		const update_value = (index, elementID) => {
+
+			let parent = document.getElementById(elementID).children[0].children
 			let shortcut = parent[0].children[1].value
 			let description = parent[1].children[1].value
 			let color = parent[2].children[1].children[1].value
 
 			let useURI = parent[3].children[1].getAttribute('data-state') == 'checked'
 
-			let id = search_options[index][3]
+			let id = data[index][4]
 
-			let options = search_options.slice()
+			let options = data.slice()
 			options[index] = [shortcut, description, color, useURI, id]
 
-			update(options, default_search)
-
 			setData((prev) =>
-				prev.map((e, i) => (i == index ? search_options[index] : e))
+				prev.map((e, i) => (i == index ? options[index] : e))
 			)
-
-            Toast.success("Saved")
 		}
 
-		const delete_value = (index, id) => {
-			remove(id)
-			update(search_options, default_search)
+		const delete_value = (id) => {
+			setData((prev) => prev.filter((e, i) => e[4] != id))
+		}
 
-			setData((prev) => prev.filter((e, i) => i != index))
+		updateLocalstorageSettings = () => {
+			update(data, defaultSearch);
 		}
 
 		const add_value = () => {
-			setData([...data, add(['', '', '#ffffff', false])])
-			update(search_options, default_search)
-		}
-
-		updateAfterSettingsImport = () => {
-			setData(search_options)
-			setDefault(default_search)
+			setData([...data, ['', '', '#ffffff', false, uuidv4()]])
 		}
 
 		return isHidden ? <div className="hidden"></div> : (
-			<div className="text">
-				<p className="text-lg font-semibold">{name}</p>
+			<div className="text mb-4">
+				<p className="font-semibold">{name}</p>
 				<div className="flex justify-between content-center my-2">
 					<p className="content-center text-sm">Default Search: </p>
-					<div className="flex items-center content-center">
+					<div className="flex items-center content-center w-3/5">
 						<input
 							type="text"
 							placeholder="Default Search"
 							className="bg-inherit w-full h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none text-sm mr-2 ml-auto"
 							defaultValue={defaultSearch}
+							onChange={(e) => update_default(e)}
 						></input>
-						<Button onClick={(e) => update_default(e)} variant="outline">Save</Button>
 					</div>
 				</div>
 
@@ -166,7 +162,7 @@ export function SearchSetting(name, type) {
 										Shortcut - {shortcut}
 									</p>
 								</AccordionTrigger>
-								<AccordionContent>
+								<AccordionContent id={id}>
 									<div className="flex justify-between content-center">
 										<p className="content-center">
 											Shortcut:
@@ -176,6 +172,7 @@ export function SearchSetting(name, type) {
 											placeholder="Shortcut (\v\ for user value)"
 											className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
 											defaultValue={shortcut}
+											onChange={() => update_value(index, id)}
 										></input>
 									</div>
 									<div className="flex justify-between content-center my-3">
@@ -187,6 +184,7 @@ export function SearchSetting(name, type) {
 											placeholder="Destination (\v\ for user value)"
 											className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
 											defaultValue={destination}
+											onChange={() => update_value(index, id)}
 										></input>
 									</div>
 									<div className="flex justify-between content-center mb-3">
@@ -203,6 +201,7 @@ export function SearchSetting(name, type) {
 												placeholder="Color"
 												className="bg-inherit w-1/2 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
 												defaultValue={color}
+												onChange={() => update_value(index, id)}
 											></input>
 										</div>
 									</div>
@@ -210,23 +209,14 @@ export function SearchSetting(name, type) {
 										<p className="content-center">
 											Use encodeURIComponent:
 										</p>
-										<Switch defaultChecked={useURI} className="mr-2 data-[state=unchecked]:[&>span]:bg-[var(--text)]"/>
+										<Switch defaultChecked={useURI} onCheckedChange={() => update_value(index, id)} className="mr-2 data-[state=unchecked]:[&>span]:bg-[var(--text)]"/>
 									</div>
 									<div className="flex justify-between content-center">
 										<div></div>
 										<div>
 											<Button
-												onClick={(e) =>
-													update_value(e, index)
-												}
-												className="mr-4"
-												variant="outline"
-											>
-												Save
-											</Button>
-											<Button
 												onClick={() =>
-													delete_value(index, id)
+													delete_value(id)
 												}
 												variant="destructive"
 											>
@@ -257,6 +247,7 @@ export function SearchSetting(name, type) {
 		"add": add,
 		"remove": remove,
 		"get": get,
+        "save": save_preferences, 
 		"render": render,
 		"name": name,
 		"type": type
