@@ -42,7 +42,7 @@ export default function Home() {
 
         window.addEventListener("keydown", toggleSettings);
         return () => window.removeEventListener("keydown", toggleSettings);
-        
+
     }, []);
 
     if (!mounted) {
@@ -51,27 +51,37 @@ export default function Home() {
 
     return (
         <SettingsProvider>
-            <SetupSettings onLoad={() => setSettingsReady(true)}/>
-            <div id="date-div" className="text-[--text] select-none grid place-items-center content-center h-screen w-screen">
-                <div className="text-6xl font-medium"><Time></Time></div>
-                <Date_C></Date_C>
-                <br></br>
-                <div className="mt-8 w-1/2 flex justify-center"><SearchBar searchSettings={globalSettings.get("Search Shortcuts")}></SearchBar></div>
-                <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
-                    <DialogContent hideClose={true} className="min-w-fit h-[80vh]" onOpenAutoFocus={(e) => {
-                        e.preventDefault()
-                        document.activeElement.blur()
-                    }} onCloseAutoFocus={(e) => {
-                        document.getElementById("search-bar").focus()
-                    }}>
-                        <DialogHeader>
-                            <DialogTitle className="text-[--text] text-3xl">Settings Menu</DialogTitle>
-                            <DialogDescription className="muted">Manage your preferences here</DialogDescription>
-                        </DialogHeader>
-                        {settingsReady ? globalSettings.render() : <p>Loading settings...</p>}
-                    </DialogContent>
-                </Dialog>
+            <SetupSettings onLoad={() => setSettingsReady(true)} />
+            <div className="grid place-items-center content-center h-screen w-screen">
+                <div id="date-div" className="text select-none grid place-items-center content-center w-screen">
+                    <div className="text-6xl font-medium"><Time></Time></div>
+                    <Date_C></Date_C>
+                    <br></br>
+                    <div className="mt-8 w-1/2 flex justify-center"><SearchBar searchSettings={globalSettings.get("Search Shortcuts")}></SearchBar></div>
+                    <br></br>
+                </div>
+                <div className="mt-8">
+                    {
+                        globalSettings.get("Widgets") != null 
+                            ? globalSettings.get("Widgets").renderWidgets() 
+                            : <></>
+                    }
+                </div>
             </div>
+            <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+                <DialogContent hideClose={true} className="min-w-fit h-[80vh]" onOpenAutoFocus={(e) => {
+                    e.preventDefault()
+                    document.activeElement.blur()
+                }} onCloseAutoFocus={(e) => {
+                    document.getElementById("search-bar").focus()
+                }}>
+                    <DialogHeader>
+                        <DialogTitle className="text-[--text] text-3xl">Settings Menu</DialogTitle>
+                        <DialogDescription className="muted">Manage your preferences here</DialogDescription>
+                    </DialogHeader>
+                    {settingsReady ? globalSettings.render() : <p>Loading settings...</p>}
+                </DialogContent>
+            </Dialog>
         </SettingsProvider>
     )
 }

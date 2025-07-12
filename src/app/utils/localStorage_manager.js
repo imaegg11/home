@@ -4,7 +4,7 @@ export class localStorageManager {
     }
 
     getItem(setting) {
-        if (localStorage.getItem(this.website_name) == null) {
+        if (localStorage.getItem(this.website_name) == null || localStorage.getItem(this.website_name) == "null" || localStorage.getItem(this.website_name) == undefined || localStorage.getItem(this.website_name) == "undefined") {
             localStorage.setItem(this.website_name, "{}");
             return null;
         } else {

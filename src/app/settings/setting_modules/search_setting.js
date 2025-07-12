@@ -5,18 +5,18 @@ import {
 	AccordionTrigger
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
-import { Toast } from '@/app/toast'
 import { useEffect, useState } from 'react'
-import { lsm } from '../localStorage_manager'
+import { lsm } from '../../utils/localStorage_manager'
 
-import { Switch  } from "@/components/ui/switch"
+import { Switch } from "@/components/ui/switch"
+import uuidv4 from '@/app/utils/uuidv4'
 
 export function SearchSetting(name, type) {
 	let search_options = []
 
 	let default_search = 'https://duckduckgo.com/?t=ffab&q='
 
-    let updateLocalstorageSettings = null;
+	let updateLocalstorageSettings = null;
 
 	const export_setting = () => {
 		return {
@@ -34,24 +34,18 @@ export function SearchSetting(name, type) {
 
 	const load = () => {
 		if (lsm.getItem(name) === null) {
-            update(search_options, default_search)
-        } else {
+			update(search_options, default_search)
+		} else {
 			import_setting(lsm.getItem(name))
 		}
 	}
 
 	const update = (opt, def) => {
-		search_options = opt 
-		default_search = def 
+		search_options = opt
+		default_search = def
 
 		lsm.setItem(name, get())
 	}
-
-	const uuidv4 = () => { // Literally only here to make a unique id that barely gets used :) 
-		return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-		  (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
-		);
-	  }
 
 	const add = (value) => {
 		if (value.length != 5) value.push(uuidv4())
@@ -81,10 +75,10 @@ export function SearchSetting(name, type) {
 	}
 
 	const save_preferences = () => {
-        if (updateLocalstorageSettings !== null) updateLocalstorageSettings()
-    }
+		if (updateLocalstorageSettings !== null) updateLocalstorageSettings()
+	}
 
-	function Component({ isHidden })  {
+	function Component({ isHidden }) {
 		const [data, setData] = useState(search_options)
 		const [defaultSearch, setDefault] = useState(default_search)
 
@@ -94,7 +88,7 @@ export function SearchSetting(name, type) {
 		}, [search_options, default_search])
 
 		const update_default = (e) => {
-            let value = e.target.value
+			let value = e.target.value
 
 			setDefault(value)
 		}
@@ -148,86 +142,86 @@ export function SearchSetting(name, type) {
 
 				<Accordion type="multiple" className="w-[90%] mx-2">
 
-					{data.length == 0 ? 
+					{data.length == 0 ?
 						<div className="mt-8 mb-6">
 							<p className="text-center text-sm">There seems to be nothing here... Try adding a shortcut?</p>
 						</div>
-					: data.map((value, index) => {
-						let [shortcut, destination, color, useURI, id] = value
+						: data.map((value, index) => {
+							let [shortcut, destination, color, useURI, id] = value
 
-						return (
-							<AccordionItem key={index + 10} value={index + 10}>
-								<AccordionTrigger>
-									<p className="overflow-hidden text-ellipsis whitespace-nowrap">
-										Shortcut - {shortcut}
-									</p>
-								</AccordionTrigger>
-								<AccordionContent id={id}>
-									<div className="flex justify-between content-center">
-										<p className="content-center">
-											Shortcut:
+							return (
+								<AccordionItem key={index + 10} value={index + 10}>
+									<AccordionTrigger>
+										<p className="overflow-hidden text-ellipsis whitespace-nowrap">
+											Shortcut - {shortcut}
 										</p>
-										<input
-											type="text"
-											placeholder="Shortcut (\v\ for user value)"
-											className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
-											defaultValue={shortcut}
-											onChange={() => update_value(index, id)}
-										></input>
-									</div>
-									<div className="flex justify-between content-center my-3">
-										<p className="content-center">
-											Destination:
-										</p>
-										<input
-											type="text"
-											placeholder="Destination (\v\ for user value)"
-											className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
-											defaultValue={destination}
-											onChange={() => update_value(index, id)}
-										></input>
-									</div>
-									<div className="flex justify-between content-center mb-3">
-										<p className="content-center">Color:</p>
-										<div className="flex items-center">
-											<div
-												className="h-8 w-8 ml-auto mr-2 rounded-md border-2 border-[#595959]"
-												style={{
-													backgroundColor: color
-												}}
-											></div>
+									</AccordionTrigger>
+									<AccordionContent id={id}>
+										<div className="flex justify-between content-center">
+											<p className="content-center">
+												Shortcut:
+											</p>
 											<input
 												type="text"
-												placeholder="Color"
-												className="bg-inherit w-1/2 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
-												defaultValue={color}
+												placeholder="Shortcut (\v\ for user value)"
+												className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
+												defaultValue={shortcut}
 												onChange={() => update_value(index, id)}
 											></input>
 										</div>
-									</div>
-									<div className="flex justify-between content-center my-3">
-										<p className="content-center">
-											Use encodeURIComponent:
-										</p>
-										<Switch defaultChecked={useURI} onCheckedChange={() => update_value(index, id)} className="mr-2 data-[state=unchecked]:[&>span]:bg-[var(--text)]"/>
-									</div>
-									<div className="flex justify-between content-center">
-										<div></div>
-										<div>
-											<Button
-												onClick={() =>
-													delete_value(id)
-												}
-												variant="destructive"
-											>
-												Delete
-											</Button>
+										<div className="flex justify-between content-center my-3">
+											<p className="content-center">
+												Destination:
+											</p>
+											<input
+												type="text"
+												placeholder="Destination (\v\ for user value)"
+												className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
+												defaultValue={destination}
+												onChange={() => update_value(index, id)}
+											></input>
 										</div>
-									</div>
-								</AccordionContent>
-							</AccordionItem>
-						)
-					})}
+										<div className="flex justify-between content-center mb-3">
+											<p className="content-center">Color:</p>
+											<div className="flex items-center">
+												<div
+													className="h-8 w-8 ml-auto mr-2 rounded-md border-2 border-[#595959]"
+													style={{
+														backgroundColor: color
+													}}
+												></div>
+												<input
+													type="text"
+													placeholder="Color"
+													className="bg-inherit w-1/2 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
+													defaultValue={color}
+													onChange={() => update_value(index, id)}
+												></input>
+											</div>
+										</div>
+										<div className="flex justify-between content-center my-3">
+											<p className="content-center">
+												Use encodeURIComponent:
+											</p>
+											<Switch defaultChecked={useURI} onCheckedChange={() => update_value(index, id)} className="mr-2 data-[state=unchecked]:[&>span]:bg-[var(--text)]" />
+										</div>
+										<div className="flex justify-between content-center">
+											<div></div>
+											<div>
+												<Button
+													onClick={() =>
+														delete_value(id)
+													}
+													variant="destructive"
+												>
+													Delete
+												</Button>
+											</div>
+										</div>
+									</AccordionContent>
+								</AccordionItem>
+							)
+						})}
 					<div className="w-full flex justify-center mt-5">
 						<Button onClick={() => add_value()} variant="outline">
 							Add
@@ -238,7 +232,7 @@ export function SearchSetting(name, type) {
 		)
 	}
 
-	const render = (key, r) => <Component key={key} isHidden={r}/>
+	const render = (key, r) => <Component key={key} isHidden={r} />
 
 	return {
 		"export": export_setting,
@@ -247,7 +241,7 @@ export function SearchSetting(name, type) {
 		"add": add,
 		"remove": remove,
 		"get": get,
-        "save": save_preferences, 
+		"save": save_preferences,
 		"render": render,
 		"name": name,
 		"type": type

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { lsm } from '../localStorage_manager';
+import { lsm } from '../../utils/localStorage_manager';
 
 
 export function BackgroundSetting(name, type) {

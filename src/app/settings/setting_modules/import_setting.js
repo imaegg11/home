@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button"
-import { lsm } from "../localStorage_manager"
+import { lsm } from "../../utils/localStorage_manager"
 import { globalSettings } from "../settings"
 import { Toast } from "@/app/toast"
 
-export function ImportSettings(name, type) {
+export function ImportSetting(name, type) {
 
     const export_setting = () => {
         return {}

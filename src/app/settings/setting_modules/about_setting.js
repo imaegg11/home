@@ -1,4 +1,4 @@
-import { lsm } from '../localStorage_manager';
+import { lsm } from '../../utils/localStorage_manager';
 
 export function AboutSetting(name, type) {
 
