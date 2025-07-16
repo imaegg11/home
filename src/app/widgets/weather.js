@@ -123,11 +123,10 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
             } else {
                 window.location.href = redirect
             }
-
         }
 
         let jsxForData = (forecastData == null || forecastData == null)
-            ? (failedFetch ? <p className="text-xl">Failed to fetch weather</p> : <p className="text-xl">Fetching Weather...</p>)
+            ? (failedFetch ? <p className="text-xl">Failed to fetch weather</p> : <p className="text-xl">Fetching weather...</p>)
             : <div className="w-full px-8 flex justify-around items-center">
                 <div className="grid place-content-center">
                     <div className="flex">
@@ -150,7 +149,7 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
         let row_spans = ["row-span-1", "row-span-2"]
 
         return (
-            <div className={`${col_spans[cols - 1]} ${row_spans[rows - 1]} ${cls} text w-full h-full grid place-items-center text cursor-pointer`} onClick={(e) => redirectWeather(e)}>
+            <div className={`${col_spans[cols - 1]} ${row_spans[rows - 1]} ${cls} text w-full h-full grid place-items-center cursor-pointer`} onClick={(e) => redirectWeather(e)}>
                 {jsxForData}
             </div>
         )
