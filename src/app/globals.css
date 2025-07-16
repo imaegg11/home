@@ -9,14 +9,20 @@
 body {
   font-family: var(--noto), Arial, Helvetica, sans-serif;
   background-repeat: no-repeat;
-  background-size:  cover;
+  background-size: cover;
   transition: backgroundSize 0s !important;
 }
 
 * {
-  transition: all 0.25s cubic-bezier( 0.39, 0.575, 0.565, 1 ) !important; 
-  /* FIX LATER */
+  /* transition: all 0.25s cubic-bezier( 0.39, 0.575, 0.565, 1 ) !important;  */
+  
+  /* Stolen from Tailwind CSS :) */
+
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+  transition-timing-function: var(--default-transition-timing-function);
+  transition-duration: var(--default-transition-duration);
 }
+
 .draggable-ghost {
   background-color: var(--background-5);
 }
@@ -84,6 +90,7 @@ input::placeholder {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .dark {
 
     --text: hsl(240, 10%, 96%);
@@ -99,7 +106,7 @@ input::placeholder {
     --buttons-secondary: hsl(211, 71%, 53%);
 
     --background: 240, 10%, 4%;
-  
+
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -138,6 +145,7 @@ input::placeholder {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

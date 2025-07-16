@@ -3,7 +3,7 @@ import { Switch } from "@/components/ui/switch"
 import uuidv4 from "../utils/uuidv4";
 
 
-export function EmptyWidget(cols, rows, isTransparent = false) {
+export function EmptyWidget(cols = 1, rows = 1, isTransparent = false) {
 
     let name = "Empty Widget"
     let id = uuidv4()
