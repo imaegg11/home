@@ -32,7 +32,7 @@ import { Grip, CheckIcon, ChevronsUpDownIcon } from "lucide-react"
 import { ReactSortable } from "react-sortablejs";
 
 import { useEffect, useState } from "react";
-import { WeatherWidget, EmptyWidget, NewsWidget } from "@/app/widgets/all_widgets"
+import { WeatherWidget, EmptyWidget, NewsWidget, SystemInfoWidget } from "@/app/widgets/all_widgets"
 
 export function WidgetSetting(name, type) {
 
@@ -40,6 +40,7 @@ export function WidgetSetting(name, type) {
         [WeatherWidget().name]: WeatherWidget,
         [NewsWidget().name]: NewsWidget,
         [EmptyWidget().name]: EmptyWidget,
+        [SystemInfoWidget().name]: SystemInfoWidget,
     }
 
     let widgets = [

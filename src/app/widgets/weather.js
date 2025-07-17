@@ -117,39 +117,33 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
                 })
         }, [apiKey, loc])
 
-        const redirectWeather = (e) => {
-            if (e.ctrlKey) {
-                window.open(redirect)
-            } else {
-                window.location.href = redirect
-            }
-        }
-
         let jsxForData = (forecastData == null || forecastData == null)
             ? (failedFetch ? <p className="text-xl">Failed to fetch weather</p> : <p className="text-xl">Fetching weather...</p>)
-            : <div className="w-full px-8 flex justify-around items-center">
-                <div className="grid place-content-center">
-                    <div className="flex">
-                        <p className="text-[4rem]">{Math.round(forecastData["current"]["temp_c"])}</p>
-                        <p className="pt-2">°</p>
-                        <p className="text-lg pt-2">C</p>
+            : <a href={redirect} className="w-full">
+                <div className="w-full px-8 flex justify-around items-center">
+                    <div className="grid place-content-center">
+                        <div className="flex">
+                            <p className="text-[4rem]">{Math.round(forecastData["current"]["temp_c"])}</p>
+                            <p className="pt-2">°</p>
+                            <p className="text-lg pt-2">C</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p className="text-lg">{forecastData["current"]["condition"]["text"]}</p>
+                        <div className="faded text-sm">
+                            <p>Feels {Math.round(forecastData["current"]["feelslike_c"])}°C</p>
+                            <p>H: {Math.round(forecastData["forecast"]["forecastday"][0]["day"]["maxtemp_c"])}°C L: {Math.round(forecastData["forecast"]["forecastday"][0]["day"]["mintemp_c"])}°C </p>
+                            <p>UV: {forecastData["current"]["uv"]} WS: {forecastData["current"]["wind_kph"]}km/h {forecastData["current"]["wind_dir"]}</p>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <p className="text-lg">{forecastData["current"]["condition"]["text"]}</p>
-                    <div className="faded text-sm">
-                        <p>Feels {Math.round(forecastData["current"]["feelslike_c"])}°C</p>
-                        <p>H: {Math.round(forecastData["forecast"]["forecastday"][0]["day"]["maxtemp_c"])}°C L: {Math.round(forecastData["forecast"]["forecastday"][0]["day"]["mintemp_c"])}°C </p>
-                        <p>UV: {forecastData["current"]["uv"]} WS: {forecastData["current"]["wind_kph"]}km/h {forecastData["current"]["wind_dir"]}</p>
-                    </div>
-                </div>
-            </div>
+            </a>
 
         let col_spans = ["col-span-1", "col-span-2", "col-span-3", "col-span-4"]
         let row_spans = ["row-span-1", "row-span-2"]
 
         return (
-            <div className={`${col_spans[cols - 1]} ${row_spans[rows - 1]} ${cls} text w-full h-full grid place-items-center cursor-pointer`} onClick={(e) => redirectWeather(e)}>
+            <div className={`${col_spans[cols - 1]} ${row_spans[rows - 1]} ${cls} text w-full h-full grid place-items-center cursor-pointer`}>
                 {jsxForData}
             </div>
         )

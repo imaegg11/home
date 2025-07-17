@@ -121,20 +121,12 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
                     setFailedFetch(true)
                 })
         }, [newsLink])
-
-        const redirect = (e, link) => {
-            if (e.ctrlKey) {
-                window.open(link)
-            } else {
-                window.location.href = link
-            }
-        }
-
+        
         return (
             <div className={`${col_spans[cols - 1]} ${row_spans[rows - 1]} ${cls} flex items-center text`}>
                 {news == null
                     ? failedFetch ? <p className="text-xl m-auto">Failed to fetch news</p> : <p className="text-xl m-auto">Fetching news...</p>
-                    : <Carousel className="w-full h-full" 
+                    : <Carousel className="w-full h-full"
                         plugins={[
                             Autoplay({
                                 delay: 5000,
@@ -152,15 +144,17 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
 
                                 return (
                                     <CarouselItem key={e.title} className="">
-                                        <div className="h-[175px] bg-contain bg-no-repeat bg-center mx-auto bg-transparent cursor-pointer" style={{ "backgroundImage": `url(${e.urlToImage})` }} onClick={(event) => redirect(event, e.url)}>
-                                            <div className="bg-gradient-to-b from-transparent to-black h-full rounded-sm">
-                                                <div className="h-full relative">
-                                                    <div className="absolute bottom-2 px-4">
-                                                        <p className="text-sm line-clamp-2">{e.title}</p>
-                                                        <p className="text-xs muted mt-1">{source.join(" • ")}</p>
+                                        <div className="h-[175px] bg-cover bg-no-repeat bg-center mx-auto bg-transparent cursor-pointer" style={{ "backgroundImage": `url(${e.urlToImage})` }}>
+                                            <a href={e.url}>
+                                                <div className="bg-gradient-to-b from-transparent to-black h-full rounded-sm">
+                                                    <div className="h-full relative">
+                                                        <div className="absolute bottom-2 px-4">
+                                                            <p className="text-sm line-clamp-2">{e.title}</p>
+                                                            <p className="text-xs muted mt-1">{source.join(" • ")}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
                                     </CarouselItem>
                                 )
