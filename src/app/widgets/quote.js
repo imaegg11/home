@@ -72,6 +72,7 @@ export function QuoteWidget(cols = 1, rows = 1, quoteLink = "https://hs.d6f4e5.h
                         onChange={(e) => updateUseStateData(e.target.value, "link")}
                     ></input>
                 </div>
+                <p  className="my-3 muted">Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank" className="text-[var(--accent-color)]">ZenQuotes API</a></p>
             </>
         )
     }
