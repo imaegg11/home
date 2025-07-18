@@ -35,9 +35,9 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
             internalUpdate(data)
         }
 
-        const updateUseStateData = (e, info) => {
+        const updateUseStateData = (value, info) => {
             let temp = data;
-            temp[info] = e.target.value
+            temp[info] = value
 
             setData(temp)
         }
@@ -51,7 +51,7 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
                         placeholder="Columns"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["cols"]}
-                        onChange={(e) => updateUseStateData(e, "cols")}
+                        onChange={(e) => updateUseStateData(e.target.value, "cols")}
                     ></input>
                 </div>
                 <div className={`${cls} flex justify-between content-center my-3`}>
@@ -61,7 +61,7 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
                         placeholder="Rows"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["rows"]}
-                        onChange={(e) => updateUseStateData(e, "rows")}
+                        onChange={(e) => updateUseStateData(e.target.value, "rows")}
                     ></input>
                 </div>
                 <div className={`${cls} flex justify-between content-center my-3`}>
@@ -71,7 +71,7 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
                         placeholder="Redirect when widget is clicked"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["redirect"]}
-                        onChange={(e) => updateUseStateData(e, "redirect")}
+                        onChange={(e) => updateUseStateData(e.target.value, "redirect")}
                     ></input>
                 </div>
                 <div className={`${cls} flex justify-between content-center my-3`}>
@@ -81,7 +81,7 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
                         placeholder="API Key"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["apiKey"]}
-                        onChange={(e) => updateUseStateData(e, "apiKey")}
+                        onChange={(e) => updateUseStateData(e.target.value, "apiKey")}
                     ></input>
                 </div>
                 <div className={`${cls} flex justify-between content-center my-3`}>
@@ -91,7 +91,7 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
                         placeholder="Location"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["loc"]}
-                        onChange={(e) => updateUseStateData(e, "loc")}
+                        onChange={(e) => updateUseStateData(e.target.value, "loc")}
                     ></input>
                 </div>
                 <p className="my-3 muted">Using <a href="https://www.weatherapi.com/" className="text-[var(--accent-color)]">weatherapi</a> for data, visit for information for API key and location</p>

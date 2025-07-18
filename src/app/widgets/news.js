@@ -42,9 +42,9 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
             internalUpdate(data)
         }
 
-        const updateUseStateData = (e, info) => {
+        const updateUseStateData = (value, info) => {
             let temp = data;
-            temp[info] = e.target.value
+            temp[info] = value
 
             setData(temp)
         }
@@ -58,7 +58,7 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
                         placeholder="Columns"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["cols"]}
-                        onChange={(e) => updateUseStateData(e, "cols")}
+                        onChange={(e) => updateUseStateData(e.target.value, "cols")}
                     ></input>
                 </div>
                 <div className={`${cls} flex justify-between content-center my-3`}>
@@ -68,7 +68,7 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
                         placeholder="Rows"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["rows"]}
-                        onChange={(e) => updateUseStateData(e, "rows")}
+                        onChange={(e) => updateUseStateData(e.target.value, "rows")}
                     ></input>
                 </div>
                 <div className={`${cls} flex justify-between content-center my-3`}>
@@ -78,7 +78,7 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
                         placeholder="Rows"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["news"]}
-                        onChange={(e) => updateUseStateData(e, "news")}
+                        onChange={(e) => updateUseStateData(e.target.value, "news")}
                     ></input>
                 </div>
             </>
@@ -95,7 +95,7 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
         const [failedFetch, setFailedFetch] = useState(false)
 
         const validate = (article) => {
-            if (article["source"]["name"] == null && article["author"] == null) return false
+            if (article["source"] == null && article["author"] == null) return false
             else if (article["title"] == null) return false
             else if (article["urlToImage"] == null) return false
             else return true
@@ -139,7 +139,7 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
                         <CarouselContent className="h-full">
                             {news.map(e => {
                                 let source = []
-                                if (e.source.name != null) source.push(e.source.name)
+                                if (e.source != null) source.push(e.source)
                                 if (e.author != null) source.push(e.author.split(",")[0])
 
                                 return (
@@ -149,7 +149,7 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
                                                 <div className="bg-gradient-to-b from-transparent to-black h-full rounded-sm">
                                                     <div className="h-full relative">
                                                         <div className="absolute bottom-2 px-4">
-                                                            <p className="text-sm line-clamp-2">{e.title}</p>
+                                                            <p className="text-sm line-clamp-2">{e.title.split(" - ")[0]}</p>
                                                             <p className="text-xs muted mt-1">{source.join(" • ")}</p>
                                                         </div>
                                                     </div>

@@ -39,9 +39,9 @@ export function SystemInfoWidget(cols = 1, rows = 1, systemInfoLink = "http://12
             internalUpdate(data)
         }
 
-        const updateUseStateData = (e, info) => {
+        const updateUseStateData = (value, info) => {
             let temp = data;
-            temp[info] = e.target.value
+            temp[info] = value
 
             setData(temp)
         }
@@ -55,7 +55,7 @@ export function SystemInfoWidget(cols = 1, rows = 1, systemInfoLink = "http://12
                         placeholder="Columns"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["cols"]}
-                        onChange={(e) => updateUseStateData(e, "cols")}
+                        onChange={(e) => updateUseStateData(e.target.value, "cols")}
                     ></input>
                 </div>
                 <div className={`${cls} flex justify-between content-center my-3`}>
@@ -65,7 +65,7 @@ export function SystemInfoWidget(cols = 1, rows = 1, systemInfoLink = "http://12
                         placeholder="Rows"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["rows"]}
-                        onChange={(e) => updateUseStateData(e, "rows")}
+                        onChange={(e) => updateUseStateData(e.target.value, "rows")}
                     ></input>
                 </div>
                 <div className={`${cls} flex justify-between content-center my-3`}>
@@ -75,7 +75,7 @@ export function SystemInfoWidget(cols = 1, rows = 1, systemInfoLink = "http://12
                         placeholder="Rows"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["sysinfo"]}
-                        onChange={(e) => updateUseStateData(e, "sysinfo")}
+                        onChange={(e) => updateUseStateData(e.target.value, "sysinfo")}
                     ></input>
                 </div>
             </>
