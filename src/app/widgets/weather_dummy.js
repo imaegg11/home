@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import uuidv4 from "@/app/utils/uuidv4"
 import { Toast } from "../toast";
 
-export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.com", apiKey = "", loc = "") {
+export function DummyWeatherWidget(cols = 1, rows = 1, redirect = "https://example.com", link = "") {
 
-    let name = "Weather Widget"
+    let name = "Dummy Weather Widget"
     let id = uuidv4()
 
-    let widgetData = [cols, rows, redirect, apiKey, loc]
+    let widgetData = [cols, rows, redirect, link]
 
     let updateData = null;
 
@@ -15,10 +15,9 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
         cols = data["cols"]
         rows = data["rows"]
         redirect = data["redirect"]
-        apiKey = data["apiKey"]
-        loc = data["loc"]
+        link = data["apiKey"]
 
-        widgetData = [cols, rows, redirect, apiKey, loc]
+        widgetData = [cols, rows, redirect, link]
     }
 
     function SettingComponent({ cls }) {
@@ -27,8 +26,7 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
             "cols": cols,
             "rows": rows,
             "redirect": redirect,
-            "apiKey": apiKey,
-            "loc": loc,
+            "apiKey": link,
         })
 
         updateData = () => {
@@ -75,23 +73,13 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
                     ></input>
                 </div>
                 <div className={`${cls} flex justify-between content-center my-3`}>
-                    <p className="content-center">API Key:</p>
+                    <p className="content-center">Link:</p>
                     <input
                         type="text"
-                        placeholder="API Key"
+                        placeholder="URL"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
                         defaultValue={data["apiKey"]}
                         onChange={(e) => updateUseStateData(e.target.value, "apiKey")}
-                    ></input>
-                </div>
-                <div className={`${cls} flex justify-between content-center my-3`}>
-                    <p className="content-center">Location:</p>
-                    <input
-                        type="text"
-                        placeholder="Location"
-                        className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
-                        defaultValue={data["loc"]}
-                        onChange={(e) => updateUseStateData(e.target.value, "loc")}
                     ></input>
                 </div>
                 <p className="my-3 muted">Using <a href="https://www.weatherapi.com/" className="accent-text">weatherapi</a> for data, visit for information for API key and location</p>
@@ -108,14 +96,14 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
         const [failedFetch, setFailedFetch] = useState(false)
 
         useEffect(() => {
-            fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${loc}&aqi=yes`)
+            fetch(`${link}`)
                 .then(r => r.json())
                 .then(r => { setForecastData(r) })
                 .catch(error => {
                     Toast.error("Failed to retrieve weather data")
                     setFailedFetch(true)
                 })
-        }, [apiKey, loc])
+        }, [link])
 
         let jsxForData = (forecastData == null || forecastData == null)
             ? (failedFetch ? <p className="text-xl">Failed to fetch weather</p> : <p className="text-xl">Fetching weather...</p>)

@@ -19,8 +19,6 @@ export function SetupSettings({ onLoad }) {
 
     const search_settings = SearchSetting('Search Shortcuts', 'Search')
     search_settings.add(["wiki \\v\\", "https://en.wikipedia.org/wiki/\\v\\", "#fc4e4e", false])
-    search_settings.add(["gh metro", "https://github.com/wlmac/metropolis", "#fca54e", false])
-    search_settings.add(["gh metro \\v\\", "https://github.com/wlmac/metropolis/pull/\\v\\", "#fce54e", false])
     search_settings.add(["gh \\v\\", "https://github.com/\\v\\", "#96fc4e", false])
     search_settings.add(["@g \\v\\", "https://www.google.ca/search?q=\\v\\", "#4efce5", true])
 

@@ -82,7 +82,7 @@ export function ImageWidget(cols = 1, rows = 1, url) {
         return (
             <div className={`${col_spans[cols - 1]} ${row_spans[rows - 1]} ${cls}`}>
                 <div className="h-full w-full" style={{
-                    "background": `url(${url})`,
+                    "backgroundImage": `url(${url})`,
                     "backgroundSize": "contain",
                     "backgroundRepeat": "no-repeat",
                     "backgroundPosition": "center"

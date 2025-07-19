@@ -5,6 +5,7 @@ import { SystemInfoWidget } from "./system_info"
 import { TimeProgressWidget } from "./time_progress"
 import { QuoteWidget } from "./quote"
 import { ImageWidget } from "./image";
+import { DummyWeatherWidget } from "./weather_dummy";
 
 
 export const availableWidgets = {
@@ -15,5 +16,6 @@ export const availableWidgets = {
     [TimeProgressWidget().name]: TimeProgressWidget,
     [QuoteWidget().name]: QuoteWidget,
     [ImageWidget().name]: ImageWidget,
+    [DummyWeatherWidget().name]: DummyWeatherWidget
 }
 
