@@ -78,7 +78,7 @@ export function Settings() {
 
         const clear_all = () => {
             for (let child of document.getElementById("settings-types").children) {
-                child.classList.remove("bg-[var(--background-10)]")
+                child.classList.remove("bg-[hsl(var(--background-10))]")
                 child.classList.remove("text")
                 child.classList.add("muted")
             }
@@ -86,7 +86,7 @@ export function Settings() {
 
         const handle_type_switch = (event, type) => {
             clear_all()
-            event.target.classList.add("bg-[var(--background-10)]")
+            event.target.classList.add("bg-[hsl(var(--background-10))]")
             event.target.classList.remove("muted")
             event.target.classList.add("text")
             setSettingType(type)
@@ -108,7 +108,7 @@ export function Settings() {
                 <div className="flex w-[50vw] h-[55vh] pb-4 relative top-0">
                     <div id="settings-types" className="w-1/3 my-2 overflow-y-auto"> {/* TO-DO */}
                         {settingTypes.map((type, index) =>
-                            <p className={`${index == 0 ? "bg-[var(--background-10)] text " : "muted "}px-4 my-1 py-2 rounded-[0.25rem] hover:cursor-pointer hover:bg-[var(--background-10)] text-sm`} onClick={(e) => handle_type_switch(e, type)} key={type}>{type}</p>
+                            <p className={`${index == 0 ? "bg-[hsl(var(--background-10))] text " : "muted "}px-4 my-1 py-2 rounded-[0.25rem] hover:cursor-pointer hover:bg-[hsl(var(--background-10))] text-sm`} onClick={(e) => handle_type_switch(e, type)} key={type}>{type}</p>
                         )}
                     </div >
                     <Separator className="mx-4" orientation="vertical"></Separator>
@@ -120,7 +120,7 @@ export function Settings() {
                     </ScrollArea>
                 </div>
                 {settingTypesNeedSaving.includes(settingType) ? <div className="w-full flex justify-end px-4">
-                    <Button onClick={() => savePreferences()} className="bg-[var(--accent-color)] text-[var(--text)] hover:bg-[var(--buttons-secondary)]">Save Preferences</Button>
+                    <Button onClick={() => savePreferences()} className="bg-[hsl(var(--accent-color))] text hover:bg-[hsl(var(--buttons-secondary))]">Save Preferences</Button>
                 </div> : <></>}
             </div>
         )

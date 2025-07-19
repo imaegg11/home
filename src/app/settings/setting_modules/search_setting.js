@@ -203,7 +203,7 @@ export function SearchSetting(name, type) {
 											<p className="content-center">
 												Use encodeURIComponent:
 											</p>
-											<Switch defaultChecked={useURI} onCheckedChange={() => update_value(index, id)} className="mr-2 data-[state=unchecked]:[&>span]:bg-[var(--text)]" />
+											<Switch defaultChecked={useURI} onCheckedChange={() => update_value(index, id)} className="mr-2 data-[state=unchecked]:[&>span]:bg-[hsl(var(--text))]" />
 										</div>
 										<div className="flex justify-between content-center">
 											<div></div>

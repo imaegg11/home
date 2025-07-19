@@ -5,4 +5,4 @@ export { BackgroundSetting } from "./setting_modules/background_setting";
 export { ExportSetting } from "./setting_modules/export_setting";
 export { ImportSetting } from "./setting_modules/import_setting"
 export { WidgetSetting } from "./setting_modules/widgets_setting"
-
+export { CSSSetting } from "./setting_modules/css_setting"

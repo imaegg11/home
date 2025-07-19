@@ -30,7 +30,7 @@ export function EmptyWidget(cols = 1, rows = 1, isTransparent = false) {
                 <p className="content-center">
                     Is Transparent:
                 </p>
-                <Switch defaultChecked={transparent} onCheckedChange={() => setTransparent(prev => !prev)} className="mr-2 data-[state=unchecked]:[&>span]:bg-[var(--text)]" />
+                <Switch defaultChecked={transparent} onCheckedChange={() => setTransparent(prev => !prev)} className="mr-2 data-[state=unchecked]:[&>span]:bg-[hsl(var(--text))]" />
             </div>
         )
     }

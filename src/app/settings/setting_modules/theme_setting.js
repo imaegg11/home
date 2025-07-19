@@ -86,7 +86,7 @@ export function ThemeSetting(name, type) {
                 "themeName": "system",
                 "theme": systemTheme,
                 "displayColor": "transparent",
-                "children": <Laptop className="fixed" style={{ color: "var(--text)" }}></Laptop>,
+                "children": <Laptop className="fixed text"></Laptop>,
                 "selected": false
             }
         ]

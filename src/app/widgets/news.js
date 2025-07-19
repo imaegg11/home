@@ -126,7 +126,7 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
             <div className={`${col_spans[cols - 1]} ${row_spans[rows - 1]} ${cls} flex items-center text`}>
                 {news == null
                     ? failedFetch ? <p className="text-xl m-auto">Failed to fetch news</p> : <p className="text-xl m-auto">Fetching news...</p>
-                    : <Carousel className="w-full h-full"
+                    : <Carousel className="w-full h-full [&>div]:h-full"
                         plugins={[
                             Autoplay({
                                 delay: 5000,
@@ -143,10 +143,10 @@ export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hac
                                 if (e.author != null) source.push(e.author.split(",")[0])
 
                                 return (
-                                    <CarouselItem key={e.title} className="">
-                                        <div className="h-[175px] bg-cover bg-no-repeat bg-center mx-auto bg-transparent cursor-pointer" style={{ "backgroundImage": `url(${e.urlToImage})` }}>
+                                    <CarouselItem key={e.title} className="h-full">
+                                        <div className="h-full bg-cover bg-no-repeat bg-center mx-auto bg-transparent rounded-sm cursor-pointer" style={{ "backgroundImage": `url(${e.urlToImage})` }}>
                                             <a href={e.url}>
-                                                <div className="bg-gradient-to-b from-transparent to-black h-full rounded-sm">
+                                                <div className="bg-gradient-to-b from-transparent to-[hsl(var(--background))] h-full rounded-sm">
                                                     <div className="h-full relative">
                                                         <div className="absolute bottom-2 px-4">
                                                             <p className="text-sm line-clamp-2">{e.title.split(" - ")[0]}</p>

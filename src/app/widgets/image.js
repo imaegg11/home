@@ -1,24 +1,21 @@
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import uuidv4 from "@/app/utils/uuidv4"
-import { Toast } from "../toast";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
-export function QuoteWidget(cols = 1, rows = 1, quoteLink = "https://hs.d6f4e5.hackclub.app/dayQuote") {
+export function ImageWidget(cols = 1, rows = 1, url) {
 
-    let name = "Quote Widget"
+    let name = "Image Widget"
     let id = uuidv4()
 
-    let widgetData = [cols, rows, quoteLink]
+    let widgetData = [cols, rows, url]
 
     let updateData = null;
 
     const internalUpdate = (data) => {
         cols = data["cols"]
         rows = data["rows"]
-        quoteLink = data["link"]
+        url = data["url"]
 
-        widgetData = [cols, rows, quoteLink]
+        widgetData = [cols, rows, url]
     }
 
     function SettingComponent({ cls }) {
@@ -26,7 +23,7 @@ export function QuoteWidget(cols = 1, rows = 1, quoteLink = "https://hs.d6f4e5.h
         const [data, setData] = useState({
             "cols": cols,
             "rows": rows,
-            "link": quoteLink
+            "url": url
         })
 
         updateData = () => {
@@ -63,16 +60,15 @@ export function QuoteWidget(cols = 1, rows = 1, quoteLink = "https://hs.d6f4e5.h
                     ></input>
                 </div>
                 <div className={`${cls} flex justify-between content-center my-3`}>
-                    <p className="content-center">Link:</p>
+                    <p className="content-center">Image URL:</p>
                     <input
                         type="text"
-                        placeholder="Rows"
+                        placeholder="URL"
                         className="bg-inherit w-2/3 h-10 border border-gray-750 select-none rounded-xl px-6 focus-within:outline-none"
-                        defaultValue={data["link"]}
-                        onChange={(e) => updateUseStateData(e.target.value, "link")}
+                        defaultValue={data["url"]}
+                        onChange={(e) => updateUseStateData(e.target.value, "url")}
                     ></input>
                 </div>
-                <p  className="my-3 muted">Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank" className="accent-text">ZenQuotes API</a></p>
             </>
         )
     }
@@ -83,32 +79,14 @@ export function QuoteWidget(cols = 1, rows = 1, quoteLink = "https://hs.d6f4e5.h
         let col_spans = ["col-span-1", "col-span-2", "col-span-3", "col-span-4"]
         let row_spans = ["row-span-1", "row-span-2"]
 
-        const [quote, setQuote] = useState(null)
-        const [failedFetch, setFailedFetch] = useState(false)
-
-        useEffect(() => {
-            fetch(quoteLink)
-                .then(r => r.json())
-                .then(r => { setQuote(r) })
-                .catch(error => {
-                    Toast.error("Failed to retrieve quote")
-                    setFailedFetch(true)
-                })
-        }, [])
-
-        useEffect(() => {
-            if (quote != null) document.getElementById(id).innerHTML = '<p style="margin-bottom: 0.5rem;">Quote Of The Day</p>' + quote["data"]
-        }, [quote])
-
         return (
             <div className={`${col_spans[cols - 1]} ${row_spans[rows - 1]} ${cls}`}>
-                <ScrollArea className='h-full'>
-                <div className="text text-sm p-4 grid">
-                    <div id={`${id}`} className="text-center">
-                        <p className="mb-2">Quote Of The Day</p>
-                    </div>
-                </div>
-                </ScrollArea>
+                <div className="h-full w-full" style={{
+                    "background": `url(${url})`,
+                    "backgroundSize": "contain",
+                    "backgroundRepeat": "no-repeat",
+                    "backgroundPosition": "center"
+                }}></div>
             </div>
         )
     }

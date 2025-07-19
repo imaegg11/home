@@ -233,7 +233,7 @@ export function WidgetSetting(name, type) {
             return (
                 <div id="widgets" className="grid grid-cols-4 grid-rows-2 gap-4" style={{ gridTemplateColumns: 'repeat(4, 175px)', gridTemplateRows: 'repeat(2, 175px)' }}>
                     {
-                        widgets.map((e, i) => e.render(i, "bg-[var(--background-5)] rounded-xl"))
+                        widgets.map((e, i) => e.render(i, "bg-[hsl(var(--background-5))] rounded-xl"))
                     }
                 </div>
             )

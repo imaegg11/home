@@ -53,6 +53,7 @@ export default function Home() {
     return (
         <SettingsProvider>
             <SetupSettings onLoad={() => setSettingsReady(true)} />
+            <style id="styleLocation"></style>
             <div className="grid place-items-center content-center h-screen w-screen">
                 <div id="date-div" className="text select-none grid place-items-center content-center w-screen">
                     <div className="text-6xl font-medium"><Time></Time></div>
@@ -79,7 +80,7 @@ export default function Home() {
                     document.getElementById("search-bar").focus()
                 }}>
                     <DialogHeader>
-                        <DialogTitle className="text-[--text] text-3xl">Settings Menu</DialogTitle>
+                        <DialogTitle className="text text-3xl">Settings Menu</DialogTitle>
                         <DialogDescription className="muted">Manage your preferences here</DialogDescription>
                     </DialogHeader>
                     {settingsReady ? globalSettings.render() : <p>Loading settings...</p>}

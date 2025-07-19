@@ -1,7 +1,16 @@
 import { useSettings } from "./settings/setting_provider";
 import { useEffect } from "react";
 
-import { ThemeSetting, SearchSetting, AboutSetting, BackgroundSetting, ExportSetting, ImportSetting, WidgetSetting} from "./settings/all_settings"
+import { 
+    ThemeSetting, 
+    SearchSetting,
+    AboutSetting, 
+    BackgroundSetting, 
+    ExportSetting, 
+    ImportSetting, 
+    WidgetSetting, 
+    CSSSetting
+} from "./settings/all_settings"
 
 export function SetupSettings({ onLoad }) {
     const settings = useSettings()
@@ -18,14 +27,17 @@ export function SetupSettings({ onLoad }) {
     const about = AboutSetting("About", "About")
     const theme = ThemeSetting("Theme", "Appearance")
     const bg = BackgroundSetting("Background Image", "Appearance")
-    const exp = ExportSetting("Export Settings", "Settings")
-    const imp = ImportSetting("Import Settings", "Settings")
+    const exp = ExportSetting("Export Setting", "Settings")
+    const imp = ImportSetting("Import Setting", "Settings")
     const widgets = WidgetSetting("Widgets", "Widgets")
+
+    const css = CSSSetting("Custom CSS", "CSS")
 
     const all_settings = [
         theme,
         search_settings,
         widgets,
+        css,
         imp,
         exp,
         bg,
@@ -35,7 +47,8 @@ export function SetupSettings({ onLoad }) {
     const setting_types_need_saving = [
         "Appearance",
         "Search",
-        "Widgets"
+        "Widgets",
+        "CSS"
     ]
 
     // SETTINGS END HERE

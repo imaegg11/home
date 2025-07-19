@@ -2,6 +2,14 @@ import { useState, useEffect } from "react";
 import uuidv4 from "@/app/utils/uuidv4"
 import { Toast } from "../toast";
 
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
+
 export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.com", apiKey = "", loc = "") {
 
     let name = "Weather Widget"
@@ -94,7 +102,7 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
                         onChange={(e) => updateUseStateData(e.target.value, "loc")}
                     ></input>
                 </div>
-                <p className="my-3 muted">Using <a href="https://www.weatherapi.com/" className="text-[var(--accent-color)]">weatherapi</a> for data, visit for information for API key and location</p>
+                <p className="my-3 muted">Using <a href="https://www.weatherapi.com/" className="accent-text">weatherapi</a> for data, visit for information for API key and location</p>
             </>
         )
     }
@@ -138,6 +146,7 @@ export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.co
                     </div>
                 </div>
             </a>
+
 
         let col_spans = ["col-span-1", "col-span-2", "col-span-3", "col-span-4"]
         let row_spans = ["row-span-1", "row-span-2"]

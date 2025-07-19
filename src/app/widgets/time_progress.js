@@ -66,7 +66,7 @@ export function TimeProgressWidget(cols = 1, rows = 1, animate = true) {
                     <p className="content-center">
                         Animate:
                     </p>
-                    <Switch defaultChecked={data["ani"]} onCheckedChange={(b) => updateUseStateData(b, "ani")} className="mr-2 data-[state=unchecked]:[&>span]:bg-[var(--text)]" />
+                    <Switch defaultChecked={data["ani"]} onCheckedChange={(b) => updateUseStateData(b, "ani")} className="mr-2 data-[state=unchecked]:[&>span]:bg-[hsl(var(--text))]" />
                 </div>
             </>
         )
