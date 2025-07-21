@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Time } from "./components/time";
 import { Date_C } from "./components/date";
 import { SearchBar } from "./components/search";
+import { README } from "./components/readme";
 import { SetupSettings } from "./settings.config";
 
 import {
@@ -86,6 +87,7 @@ export default function Home() {
                     {settingsReady ? globalSettings.render() : <p>Loading settings...</p>}
                 </DialogContent>
             </Dialog>
+            <README></README>
         </SettingsProvider>
     )
 }
