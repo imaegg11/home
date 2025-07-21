@@ -4,11 +4,11 @@ Simple home page written in react using Next.js
 
 Search bar allows for prefix based searching, where prefixes can change the end url destination 
 
-All search settings is stored on your browser in localStorage 
+All data for settings is stored on your browser in localStorage 
 
-`Ctrl + Enter` to open in new window
+`Ctrl + Enter` to open in new window when searching
 
-`Ctrl + .` to pull up the settings
+`Ctrl + .` to pull up the settings and modify the site your hearts content
 
 ---
 
