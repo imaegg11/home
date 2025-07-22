@@ -72,9 +72,8 @@ export default function Home() {
                 </div>
             </div>
             <Dialog open={settingsOpen} onOpenChange={setSettingsOpen} modal={false}>
-                {/* TO DO - FIX THE CLOSE BUTTON ON THE THINGY */}
                 {settingsOpen && <div data-state={settingsOpen ? "open" : "closed"} className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"></div>}
-                <DialogContent className="min-w-fit h-[80vh]" onOpenAutoFocus={(e) => {
+                <DialogContent className="min-w-fit h-[80vh] [&>button]:hidden" onOpenAutoFocus={(e) => {
                     e.preventDefault()
                     document.activeElement.blur()
                 }} onCloseAutoFocus={(e) => {

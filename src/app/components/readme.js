@@ -19,8 +19,7 @@ export function README() {
 
     return (
         <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
-            {/* TO DO - FIX THE CLOSE BUTTON ON THE THINGY */}
-            <DialogContent className="min-w-fit h-[80vh]" onOpenAutoFocus={(e) => {
+            <DialogContent className="min-w-fit h-[80vh] [&>button]:hidden"  onOpenAutoFocus={(e) => {
                 e.preventDefault()
                 document.activeElement.blur()
             }} onCloseAutoFocus={(e) => {
