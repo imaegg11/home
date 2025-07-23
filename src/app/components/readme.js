@@ -11,11 +11,7 @@ import { useState } from "react"
 
 export function README() {
 
-    let viewed_readme = localStorage["viewed_readme"]
-    const [settingsOpen, setSettingsOpen] = useState(
-        (viewed_readme == null || viewed_readme == undefined ||
-            viewed_readme == "null" || viewed_readme == "undefined") ? true : !viewed_readme
-    )
+    const [settingsOpen, setSettingsOpen] = useState(true)
 
     return (
         <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
@@ -34,7 +30,7 @@ export function README() {
                                 Baguette.
                                 <br></br>
                                 <br></br>
-                                Anyways hey there! I'm glad you're taking a look at this project. Took me way too long to complete for honestly a project that wasn't all that difficult to do. But I wanted to add a bunch of random features with it and that took far too long to complete. Oops. Anyhow, please read this entire thing (It will disappear the next time you visit this though, modify localStorage to change that), I promise it won't be too long (Editing me here, that was a lie it's like 601 words).
+                                Anyways hey there! I'm glad you're taking a look at this project. Took me way too long to complete for honestly a project that wasn't all that difficult to do. But I wanted to add a bunch of random features with it and that took far too long to complete. Oops. Anyhow, please read this entire thing (<del>It will disappear the next time you visit this though, modify localStorage to change that</del> No longer the case, just close this if you've read it before), I promise it won't be too long (Editing me here, that was a lie it's like ~600 words).
                                 <br></br>
                                 <br></br>
                                 So well, this is a homepage. Created for myself to use, figured might submit this to SoM for some free goodies while I was at it :) Everything is saved to localStorage. Use <code className="bg-[hsl(var(--background-20))] px-1">Ctrl + .</code> to open the settings menu (Do this later!!). There will be appearance in which you can change the theme and set a background image. Sure, it supports light mode but it's kinda meh if you ask me, much prefer dark mode :) In search, you will be able to have custom prefixes to quickly access different links. For example, the default includes a wiki search, so if you type wiki baguette and hit enter, you will be brought to the baguette wikipedia entry. The search bar will also change color to indicate this. In widgets, you modify what widgets (The boxes below search bar). Order matters!! Drag on the icon with 9 dots to rearrange them.  You can add more if you scroll down to see the add button. CSS will allow to apply custom css if you don't like mine (Wow, you got something against my css mate?). Settings will allow to import and export all of your settings. So you know, you can save and transfer all your between devices. Because I don't want to deal with cloud lmao. Finally about, um, there's nothing useful there. Also, click the save button to save everything!!
