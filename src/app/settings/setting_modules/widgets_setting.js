@@ -235,7 +235,7 @@ export function WidgetSetting(name, type) {
                     {
                         widgets.map((e, i) => {
                             return (
-                                <ErrorBoundary component={e.name} fallback={<div></div>}>
+                                <ErrorBoundary component={e.name} fallback={<div></div>} key={e.id}>
                                     {e.render(i, "bg-[hsl(var(--background-5))] rounded-xl")}
                                 </ErrorBoundary>
                             )

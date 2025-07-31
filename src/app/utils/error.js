@@ -5,6 +5,7 @@ import { Toast } from '../toast';
 
 class ErrorBoundary extends React.Component {
   constructor({ component, fallback }) {
+    super()
     this.state = { hasError: false, error: null };
   }
 
