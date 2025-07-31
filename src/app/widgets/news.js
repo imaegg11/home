@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 
-import { Toast } from "../toast";
+import { Toast } from "../utils/toast";
 
 export function NewsWidget(cols = 1, rows = 1, newsLink = "https://hs.d6f4e5.hackclub.app/news") {
 

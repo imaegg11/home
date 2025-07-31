@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import uuidv4 from "@/app/utils/uuidv4"
-import { Toast } from "../toast";
+import { Toast } from "../utils/toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function QuoteWidget(cols = 1, rows = 1, quoteLink = "https://hs.d6f4e5.hackclub.app/dayQuote") {

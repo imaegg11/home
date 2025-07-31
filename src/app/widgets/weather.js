@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import uuidv4 from "@/app/utils/uuidv4"
-import { Toast } from "../toast";
+import { Toast } from "../utils/toast";
 
 export function WeatherWidget(cols = 1, rows = 1, redirect = "https://example.com", apiKey = "", loc = "") {
 

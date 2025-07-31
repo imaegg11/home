@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import uuidv4 from "@/app/utils/uuidv4"
-import { Toast } from "../toast";
+import { Toast } from "../utils/toast";
 
 import { Activity, BatteryCharging, BatteryFull, BatteryLow, BatteryMedium, Cpu, HardDrive, MemoryStick } from "lucide-react";
 

@@ -1,7 +1,7 @@
 'use client'; // Required for React component boundaries in app directory
 
 import React from 'react';
-import { Toast } from '../toast';
+import { Toast } from './toast';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
