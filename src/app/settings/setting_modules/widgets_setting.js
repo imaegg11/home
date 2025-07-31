@@ -28,11 +28,11 @@ import { cn } from "@/lib/utils"
 
 import { Grip, CheckIcon, ChevronsUpDownIcon } from "lucide-react"
 
-
 import { ReactSortable } from "react-sortablejs";
 
 import { useEffect, useState } from "react";
 import { availableWidgets  } from "@/app/widgets/all_widgets"
+import ErrorBoundary from "@/app/utils/error"
 
 export function WidgetSetting(name, type) {
 
@@ -233,7 +233,13 @@ export function WidgetSetting(name, type) {
             return (
                 <div id="widgets" className="grid grid-cols-4 grid-rows-2 gap-4" style={{ gridTemplateColumns: 'repeat(4, 175px)', gridTemplateRows: 'repeat(2, 175px)' }}>
                     {
-                        widgets.map((e, i) => e.render(i, "bg-[hsl(var(--background-5))] rounded-xl"))
+                        widgets.map((e, i) => {
+                            return (
+                                <ErrorBoundary component={e.name} fallback={<div></div>}>
+                                    {e.render(i, "bg-[hsl(var(--background-5))] rounded-xl")}
+                                </ErrorBoundary>
+                            )
+                        })
                     }
                 </div>
             )
