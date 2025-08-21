@@ -51,6 +51,9 @@ function search_function(event, searchSettings) {
     const default_search = settings["default"]
     
     const value = document.getElementById("search-bar").value
+
+    if (value == "") return 
+
     let search_link = null 
 
     for (let option of options) {
