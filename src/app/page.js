@@ -20,6 +20,7 @@ import {
 
 import { SettingsProvider } from "./settings/setting_provider";
 import { globalSettings } from "./settings/settings";
+import { Settings } from "lucide-react";
 
 
 
@@ -73,7 +74,8 @@ export default function Home() {
             </div>
             <Dialog open={settingsOpen} onOpenChange={setSettingsOpen} modal={false}>
                 {settingsOpen && <div data-state={settingsOpen ? "open" : "closed"} className="fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"></div>}
-                <DialogContent className="min-w-fit h-[80vh] [&>button]:hidden" onOpenAutoFocus={(e) => {
+                <DialogContent className="min-w-fit h-[80vh]" onOpenAutoFocus={(e) => {
+                // <DialogContent className="min-w-fit h-[80vh] [&>button]:hidden" onOpenAutoFocus={(e) => {
                     e.preventDefault()
                     document.activeElement.blur()
                 }} onCloseAutoFocus={(e) => {
@@ -86,7 +88,12 @@ export default function Home() {
                     {settingsReady ? globalSettings.render() : <p>Loading settings...</p>}
                 </DialogContent>
             </Dialog>
-            <README></README>
+            {/* <README></README> */}
+            <div className="p-2 fixed bottom-8 right-16 rounded-full bg-black ring-1 ring-white cursor-pointer" onClick={() => {
+                setSettingsOpen(!settingsOpen)
+            }}>
+                <Settings size={24}></Settings>
+            </div>
         </SettingsProvider>
     )
 }
